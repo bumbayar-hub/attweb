@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html class="light" lang="mn" style="">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+  
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-error-container": "#93000a",
+            "primary-fixed-dim": "#adc7f7",
+            "surface-container-high": "#e8e8e8",
+            "surface-bright": "#f9f9f9",
+            "inverse-on-surface": "#f0f1f1",
+            "background": "#f9f9f9",
+            "tertiary-fixed-dim": "#bcc7dd",
+            "surface-container-low": "#f3f3f4",
+            "inverse-primary": "#adc7f7",
+            "on-secondary-fixed-variant": "#673d00",
+            "primary": "#002045",
+            "surface-tint": "#455f88",
+            "primary-fixed": "#d6e3ff",
+            "on-primary-fixed-variant": "#2d476f",
+            "on-tertiary-container": "#949fb4",
+            "on-primary-container": "#86a0cd",
+            "tertiary-fixed": "#d8e3fa",
+            "on-primary-fixed": "#001b3c",
+            "surface-variant": "#e2e2e2",
+            "error": "#ba1a1a",
+            "secondary-container": "#ffb55c",
+            "outline": "#74777f",
+            "on-surface-variant": "#43474e",
+            "on-secondary-fixed": "#2b1700",
+            "outline-variant": "#c4c6cf",
+            "tertiary-container": "#2b3648",
+            "on-surface": "#1a1c1c",
+            "on-background": "#1a1c1c",
+            "inverse-surface": "#2f3131",
+            "on-tertiary-fixed": "#111c2c",
+            "on-error": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "surface-container": "#eeeeee",
+            "surface": "#f9f9f9",
+            "on-primary": "#ffffff",
+            "secondary": "#875200",
+            "surface-container-lowest": "#ffffff",
+            "secondary-fixed": "#ffddba",
+            "tertiary": "#162132",
+            "surface-container-highest": "#e2e2e2",
+            "surface-dim": "#dadada",
+            "on-secondary-container": "#744600",
+            "error-container": "#ffdad6",
+            "on-secondary": "#ffffff",
+            "secondary-fixed-dim": "#ffb866",
+            "on-tertiary-fixed-variant": "#3c475a",
+            "primary-container": "#1a365d"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.5rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "md": "16px",
+            "container-max": "1200px",
+            "sm": "8px",
+            "gutter": "16px",
+            "base": "4px",
+            "xs": "4px",
+            "xl": "32px",
+            "xxl": "48px",
+            "lg": "24px"
+          },
+          "fontFamily": {
+            "h1": ["Inter"],
+            "body-md": ["Inter"],
+            "h3": ["Inter"],
+            "h2": ["Inter"],
+            "body-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "label-sm": ["Inter"]
+          },
+          "fontSize": {
+            "h1": ["40px", { "lineHeight": "1.2", "fontWeight": "700" }],
+            "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+            "h3": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+            "h2": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+            "label-md": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "label-sm": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }]
+          }
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="min-h-screen flex flex-col">
+  <!-- TopAppBar -->
+  <header class="sticky top-0 bg-surface w-full border-b border-outline-variant/30 shrink-0 z-[100]">
+  <div class="flex justify-between items-center w-full px-md md:px-xl h-20 max-w-container-max mx-auto">
+    <div class="flex items-center gap-sm">
+      <img alt="Авто terminal трейд ХХК Logo" class="h-12 w-auto object-contain" src="assets/images/main_logo.png" />
+    </div>
+
+    <nav class="hidden md:flex items-center gap-lg h-full">
+      <a class="text-on-surface-variant font-label-md hover:text-primary transition-colors" href="index.html">Нүүр</a>
+      <a class="text-on-surface-variant font-label-md hover:text-primary transition-colors" href="about.html">Бидний тухай</a>
+      <a class="text-primary font-label-md font-bold" href="services.html">Үйлчилгээ</a>
+      <a class="text-on-surface-variant font-label-md hover:text-primary transition-colors" href="contact.html">Холбоо барих</a>
+      <a href="login.html" 
+   class="bg-primary text-on-primary px-md py-sm rounded-lg font-label-md hover:opacity-90 transition-all active:scale-95">
+  Нэвтрэх
+</a>
+
+
+    </nav>
+
+    <div class="flex items-center gap-sm md:hidden">
+      <a class="text-xs border border-primary text-primary px-2 py-1 rounded hover:bg-primary hover:text-white transition-all" href="login.html">Нэвтрэх</a>
+      <span class="material-symbols-outlined text-on-surface cursor-pointer" data-icon="menu">menu</span>
+    </div>
+  </div>
+</header>
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="relative h-[400px] flex items-center overflow-hidden bg-primary-container">
+      <div class="relative z-10 max-w-container-max mx-auto px-md md:px-xl w-full">
+        <div class="max-w-2xl text-on-primary">
+          <h2 class="font-h1 text-h1 mb-md">Нийтийн тээврийн цогц үйлчилгээ</h2>
+          <p class="font-body-lg text-body-lg text-on-primary/90 mb-lg">Бид орчин үеийн стандартад нийцсэн, аюулгүй,
+            тухтай зорчигч тээврийн үйлчилгээгээр нийслэл хотын иргэдэд үйлчилж байна.</p>
+        </div>
+      </div>
+    </section>
+    <!-- Services -->
+    <section class="py-xxl max-w-container-max mx-auto px-md md:px-xl">
+      <div class="flex flex-col mb-xl">
+        <span class="text-secondary font-label-md uppercase tracking-widest mb-xs">Үндсэн чиглэл</span>
+        <h3 class="font-h2 text-h2 text-primary">Манай үйлчилгээнүүд</h3>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-lg items-stretch">
+        <!-- Service Standard Card -->
+        <div class="md:col-span-4 bg-primary text-on-primary p-xl rounded-lg shadow-sm flex flex-col justify-between">
+          <div>
+            <span class="material-symbols-outlined text-secondary-fixed text-h2 mb-sm"
+              data-icon="verified_user">verified_user</span>
+            <h4 class="font-h3 text-h3 mb-sm">Үйлчилгээний стандарт</h4>
+            <p class="font-body-md text-body-md opacity-90">Бид зорчигч бүрт соёлтой, найрсаг, аюулгүй үйлчилгээг
+              хүргэхийн тулд байнга сургалт, хяналтыг хэрэгжүүлдэг.</p>
+          </div>
+          <div class="mt-lg pt-lg border-t border-on-primary/20">
+            <div class="flex items-center gap-md">
+              <div class="text-h2 font-bold text-secondary-fixed">100%</div>
+              <div class="text-label-sm uppercase opacity-80 leading-tight">Аюулгүй байдлын <br>баталгаа</div>
+            </div>
+          </div>
+        </div>
+        <!-- Bus Park Grid -->
+        <div id="bus-park" class="md:col-span-12 mt-xl scroll-mt-24">
+          <div class="flex flex-col mb-lg">
+            <span class="text-secondary font-label-md uppercase tracking-widest mb-xs">Техникийн хүчин чадал</span>
+            <h3 class="font-h2 text-h2 text-primary">Манай автобусны парк</h3>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+            <!-- Hyundai Aero City 540 -->
+            <div
+              class="bg-surface-container-lowest p-lg rounded-lg shadow-sm border border-outline-variant/30 flex flex-col">
+              <div class="aspect-[16/18] w-full overflow-hidden rounded-t-lg -mt-lg -mx-lg mb-lg">
+                <img src="assets/images/aero540.jpg">
+              </div>
+              <div class="flex items-center gap-md mb-md">
+                <span class="material-symbols-outlined text-primary text-h2"
+                  data-icon="directions_bus">directions_bus</span>
+                <h4 class="font-h3 text-body-lg font-bold text-primary">Hyundai Aero City 540</h4>
+              </div>
+              <p class="font-body-md text-on-surface-variant mb-lg">Нийслэлийн нийтийн тээврийн гол тулгуур хүч болсон
+                найдвартай хөлөг.</p>
+              <div class="space-y-3 mt-auto">
+                <div class="flex flex-col border-b border-outline-variant/10 pb-1">
+                  <span class="text-[10px] text-outline font-bold uppercase tracking-tighter">Үйлдвэрлэсэн
+                    хугацаа</span>
+                  <span class="text-label-md text-on-surface">1991 – 2000 он</span>
+                </div>
+                <div class="flex flex-col border-b border-outline-variant/10 pb-1">
+                  <span class="text-[10px] text-outline font-bold uppercase tracking-tighter">Хөдөлгүүр</span>
+                  <span class="text-label-md text-on-surface">D6AV (235 м.х)</span>
+                </div>
+                <div class="flex justify-between items-center pt-1">
+                  <div class="flex flex-col">
+                    <span class="text-[10px] text-outline font-bold uppercase tracking-tighter">Урт</span>
+                    <span class="text-label-md font-bold text-primary">10.9 метр</span>
+                  </div>
+                  <div class="flex flex-col text-right">
+                    <span class="text-[10px] text-outline font-bold uppercase tracking-tighter">Тормос</span>
+                    <span class="text-label-md font-bold text-primary">Full Air</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Yutong -->
+            <div
+              class="bg-surface-container-lowest p-lg rounded-lg shadow-sm border border-outline-variant/30 flex flex-col">
+              <div class="aspect-[16/18] w-full overflow-hidden rounded-t-lg -mt-lg -mx-lg mb-lg">
+                <img src="assets/images/yutong.jpg">
+              </div>
+              <div class="flex items-center gap-md mb-md">
+                <span class="material-symbols-outlined text-primary text-h2"
+                  data-icon="directions_bus">directions_bus</span>
+                <h4 class="font-h3 text-body-lg font-bold text-primary">Yutong ZK6116HG</h4>
+              </div>
+              <div class="space-y-3 mt-auto">
+                <div class="flex flex-col border-b border-outline-variant/10 pb-1">
+                  <span class="text-[10px] text-outline font-bold uppercase tracking-tighter">Багтаамж</span>
+                  <span class="text-label-md text-on-surface">75–85 хүн</span>
+                </div>
+                <div class="flex flex-col border-b border-outline-variant/10 pb-1">
+                  <span class="text-[10px] text-outline font-bold uppercase tracking-tighter">Хөдөлгүүр</span>
+                  <span class="text-label-md text-on-surface">Yuchai (240–260 м.х)</span>
+                </div>
+                <div class="flex justify-between items-center pt-1">
+                  <div class="flex flex-col">
+                    <span class="text-[10px] text-outline font-bold uppercase tracking-tighter">Утаа</span>
+                    <span class="text-label-md font-bold text-primary">Euro 5 / 6</span>
+                  </div>
+                  <div class="flex flex-col text-right">
+                    <span class="text-[10px] text-outline font-bold uppercase tracking-tighter">Дээд хурд</span>
+                    <span class="text-label-md font-bold text-primary">70 км/цаг</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Hyundai Super Aero City -->
+            <div
+              class="bg-surface-container-lowest p-lg rounded-lg shadow-sm border border-outline-variant/30 flex flex-col">
+              <div class="aspect-[16/18] w-full overflow-hidden rounded-t-lg -mt-lg -mx-lg mb-lg">
+                <img src="assets/images/aero.jpg" alt="Hyundai Super Aero City" class="w-full h-full object-cover">
+              </div>
+              <div class="flex items-center gap-md mb-md">
+                <span class="material-symbols-outlined text-primary text-h2"
+                  data-icon="directions_bus">directions_bus</span>
+                <h4 class="font-h3 text-body-lg font-bold text-primary">Hyundai Super Aero City</h4>
+              </div>
+              <div class="space-y-3 mt-auto">
+                <div class="flex flex-col border-b border-outline-variant/10 pb-1">
+                  <span class="text-[10px] text-outline font-bold uppercase tracking-tighter">Хөдөлгүүрийн төрөл</span>
+                  <span class="text-label-md text-on-surface">Дизель / Газ (CNG)</span>
+                </div>
+                <div class="flex flex-col border-b border-outline-variant/10 pb-1">
+                  <span class="text-[10px] text-outline font-bold uppercase tracking-tighter">Хурдны хайрцаг</span>
+                  <span class="text-label-md text-on-surface">5-6 шатлалт механик/автомат</span>
+                </div>
+                <div class="flex justify-between items-center pt-1">
+                  <div class="flex flex-col">
+                    <span class="text-[10px] text-outline font-bold uppercase tracking-tighter">Урт</span>
+                    <span class="text-label-md font-bold text-primary">10,955 мм</span>
+                  </div>
+                  <div class="flex flex-col text-right">
+                    <span class="text-[10px] text-outline font-bold uppercase tracking-tighter">Түлш</span>
+                    <span class="text-label-md font-bold text-primary">200л / 1,132л</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Routes Section -->
+      </div>
+      <div id="routes-info"
+        class="md:col-span-8 bg-surface-container p-xl rounded-lg border border-outline-variant/30 mt-xl scroll-mt-24">
+        <div class="flex items-center gap-sm mb-lg">
+          <span class="material-symbols-outlined text-primary text-h2" data-icon="map">map</span>
+          <h4 class="font-h3 text-h3 text-primary">Чиглэлийн мэдээлэл</h4>
+        </div>
+        <div class="space-y-md">
+          <details class="group bg-surface-container-lowest rounded-lg border border-outline-variant/30 overflow-hidden"
+            open="">
+            <summary
+              class="flex items-center justify-between p-lg cursor-pointer hover:bg-surface-container-low transition-colors list-none">
+              <div class="flex items-center gap-lg">
+                <span class="text-on-primary font-bold px-4 py-2 text-body-md rounded bg-primary-container text-white"
+                  style="background-color: rgb(0, 32, 69);" data-stitch-orig-opacity="0">Ч:7</span>
+                <span class="font-h3 text-body-lg font-bold text-primary">Нисэх → 4-р дэлгүүр</span>
+              </div>
+              <span class="material-symbols-outlined text-h2 group-open:rotate-180 transition-transform"
+                data-icon="expand_more">expand_more</span>
+            </summary>
+            <div class="p-lg border-t border-outline-variant/20">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+                <div class="relative flex flex-col gap-md pl-6">
+                  <div class="absolute left-[11px] top-2 bottom-2 w-[2px] bg-primary/20"></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md font-medium text-primary">Нисэх</span></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md text-on-surface-variant">Яармаг</span></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md text-on-surface-variant">Мубис</span></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md text-on-surface-variant">4-р дэлгүүр</span></div>
+                </div>
+                <div class="rounded-lg overflow-hidden bg-surface-container border border-outline-variant/20">
+                  <img alt="4:7 Map" class="w-full h-48 object-contain cursor-pointer" src="assets/images/Ч 7.jpg">
+                </div>
+              </div>
+            </div>
+          </details>
+          <details class="group bg-surface-container-lowest rounded-lg border border-outline-variant/30 overflow-hidden"
+            open="">
+            <summary
+              class="flex items-center justify-between p-lg cursor-pointer hover:bg-surface-container-low transition-colors list-none">
+              <div class="flex items-center gap-lg">
+                <span class="bg-primary-container text-white font-bold px-4 py-2 text-body-md rounded"
+                  style="background-color: rgb(135, 82, 0);">M:2</span>
+                <span class="font-h3 text-body-lg font-bold text-primary">Зунжин → Мубис</span>
+              </div>
+              <span class="material-symbols-outlined text-h2 group-open:rotate-180 transition-transform"
+                data-icon="expand_more">expand_more</span>
+            </summary>
+            <div class="p-lg border-t border-outline-variant/20">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+                <div class="relative flex flex-col gap-md pl-6">
+                  <div class="absolute left-[11px] top-2 bottom-2 w-[2px] bg-primary/20"></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md font-medium text-primary">Зунжин</span></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md text-on-surface-variant">7 буудал</span></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md text-on-surface-variant">Мубис</span></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md text-on-surface-variant">Сүхбаатарын талбай</span></div>
+                </div>
+                <div class="rounded-lg overflow-hidden bg-surface-container border border-outline-variant/20">
+                  <img alt="М:2 Map" class="w-full h-48 object-contain cursor-pointer" src="assets/images/M2 чиглэл.jpg">
+                </div>
+              </div>
+            </div>
+          </details>
+          <details class="group bg-surface-container-lowest rounded-lg border border-outline-variant/30 overflow-hidden"
+            open="">
+            <summary
+              class="flex items-center justify-between p-lg cursor-pointer hover:bg-surface-container-low transition-colors list-none">
+              <div class="flex items-center gap-lg">
+                <span class="bg-primary-container text-white font-bold px-4 py-2 text-body-md rounded"
+                  style="background-color: rgb(0, 32, 69);">Ч:69Б</span>
+                <span class="font-h3 text-body-lg font-bold text-primary">Англи сургууль → Гэмтлийн эмнэлэг</span>
+              </div>
+              <span class="material-symbols-outlined text-h2 group-open:rotate-180 transition-transform"
+                data-icon="expand_more">expand_more</span>
+            </summary>
+            <div class="p-lg border-t border-outline-variant/20">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+                <div class="relative flex flex-col gap-md pl-6">
+                  <div class="absolute left-[11px] top-2 bottom-2 w-[2px] bg-primary/20"></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md font-medium text-primary">Англи сургууль</span></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md text-on-surface-variant">Вива сити</span></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md text-on-surface-variant">Мөнгөн завъяа</span></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md text-on-surface-variant">Гэмтлийн эмнэлэг</span></div>
+                </div>
+                <div class="rounded-lg overflow-hidden bg-surface-container border border-outline-variant/20">
+                  <img alt="Ч:69Б Map" class="w-full h-48 object-contain cursor-pointer" src="assets/images/ч69б-scaled.jpg">
+                </div>
+              </div>
+            </div>
+          </details>
+          <details class="group bg-surface-container-lowest rounded-lg border border-outline-variant/30 overflow-hidden"
+            open="">
+            <summary
+              class="flex items-center justify-between p-lg cursor-pointer hover:bg-surface-container-low transition-colors list-none">
+              <div class="flex items-center gap-lg">
+                <span class="bg-primary-container text-white font-bold px-4 py-2 text-body-md rounded"
+                  style="background-color: rgb(135, 82, 0);">X:1</span>
+                <span class="font-h3 text-body-lg font-bold text-primary">Санзай → 7 буудал</span>
+              </div>
+              <span class="material-symbols-outlined text-h2 group-open:rotate-180 transition-transform"
+                data-icon="expand_more">expand_more</span>
+            </summary>
+            <div class="p-lg border-t border-outline-variant/20">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+                <div class="relative flex flex-col gap-md pl-6">
+                  <div class="absolute left-[11px] top-2 bottom-2 w-[2px] bg-primary/20"></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md font-medium text-primary">Санзайн эцэс</span></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md text-on-surface-variant">Их тамир</span></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md text-on-surface-variant">Зунжин</span></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md text-on-surface-variant">7 буудал</span></div>
+                </div>
+                <div class="rounded-lg overflow-hidden bg-surface-container border border-outline-variant/20">
+                  <img alt="X:1 Map" class="w-full h-48 object-contain cursor-pointer" src="assets/images/Х1 Санзай.jpeg">
+                </div>
+              </div>
+            </div>
+          </details>
+          <details class="group bg-surface-container-lowest rounded-lg border border-outline-variant/30 overflow-hidden"
+            open="">
+            <summary
+              class="flex items-center justify-between p-lg cursor-pointer hover:bg-surface-container-low transition-colors list-none">
+              <div class="flex items-center gap-lg">
+                <span class="bg-primary-container text-white font-bold px-4 py-2 text-body-md rounded"
+                  style="background-color: rgb(0, 32, 69);">Ч:84</span>
+                <span class="font-h3 text-body-lg font-bold text-primary">Бага-тэнгэр → 120 мянгат</span>
+              </div>
+              <span class="material-symbols-outlined text-h2 group-open:rotate-180 transition-transform"
+                data-icon="expand_more">expand_more</span>
+            </summary>
+            <div class="p-lg border-t border-outline-variant/20"> 
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+                <div class="relative flex flex-col gap-md pl-6">
+                  <div class="absolute left-[11px] top-2 bottom-2 w-[2px] bg-primary/20"></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md font-medium text-primary">Бага тэнгэр сити</span></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md text-on-surface-variant">Ривер гарден</span></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md text-on-surface-variant">Төв цэнгэлдэх хүрээлэн</span></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md text-on-surface-variant">120 мянгат</span></div>
+                </div>
+                <div class="rounded-lg overflow-hidden bg-surface-container border border-outline-variant/20">
+                  <img alt="Ч:84 Map" class="w-full h-48 object-contain cursor-pointer" src="assets/images/Ч 84.jpg">
+                </div>
+              </div>
+            </div>
+          </details>
+          <details class="group bg-surface-container-lowest rounded-lg border border-outline-variant/30 overflow-hidden"
+            open="">
+            <summary
+              class="flex items-center justify-between p-lg cursor-pointer hover:bg-surface-container-low transition-colors list-none">
+              <div class="flex items-center gap-lg">
+                <span class="bg-primary-container text-white font-bold px-4 py-2 text-body-md rounded"
+                  style="background-color: rgb(135, 82, 0);">ШУ:3</span>
+                <span class="font-h3 text-body-lg font-bold text-primary">Сүхбаатарын талбай → Зунжин</span>
+              </div>
+              <span class="material-symbols-outlined text-h2 group-open:rotate-180 transition-transform"
+                data-icon="expand_more">expand_more</span>
+            </summary>
+            <div class="p-lg border-t border-outline-variant/20">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+                <div class="relative flex flex-col gap-md pl-6">
+                  <div class="absolute left-[11px] top-2 bottom-2 w-[2px] bg-primary/20"></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md font-medium text-primary">Сүхбаатарын талбай</span></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md text-on-surface-variant">МУИС</span></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md text-on-surface-variant">7 буудал</span></div>
+                  <div class="flex items-center gap-md relative"><span
+                      class="material-symbols-outlined text-primary text-[20px] z-10 bg-surface-container-lowest"
+                      style="font-variation-settings: &quot;FILL&quot; 1">fiber_manual_record</span><span
+                      class="text-body-md text-on-surface-variant">Зунжин</span></div>
+                </div>
+                <div class="rounded-lg overflow-hidden bg-surface-container border border-outline-variant/20">
+                  <img alt="ШУ:3 Map" class="w-full h-48 object-contain cursor-pointer" src="assets/images/ШҮ 3.JPG">
+                </div>
+              </div>
+            </div>
+          </details>
+        </div>
+      </div>
+      </div>
+    </section>
+  </main>
+  <!-- Footer -->
+  <footer class="bg-primary text-on-primary w-full mt-auto">
+    <div
+      class="flex flex-col md:flex-row justify-between items-start w-full px-xl py-xxl gap-xl max-w-container-max mx-auto">
+      <div class="flex flex-col gap-md max-w-sm">
+        <img alt="Авто терминал трейд ХХК" class="w-auto h-16 object-contain  " src="assets/images/attlogo.png">
+
+        <p class="font-label-sm text-on-primary/50 mt-md">© 2026 Бүх эрх хуулиар хамгаалагдсан.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-xxl">
+        <div class="flex flex-col gap-md">
+          <h6 class="font-label-md text-secondary-container uppercase">Холбоосууд</h6>
+          <a class="text-on-primary/80 hover:text-white transition-colors" href="index.html">Нүүр</a>
+          <a class="text-on-primary/80 hover:text-white transition-colors" href="about.html">Бидний тухай</a>
+          <a class="text-on-primary/80 hover:text-white transition-colors" href="services.html">Үйлчилгээ</a>
+        </div>
+        <div class="flex flex-col gap-md">
+          <h6 class="font-label-md text-secondary-container uppercase">Тусламж</h6>
+          <a class="text-on-primary/80 hover:text-white transition-colors" href="#">Нууцлалын бодлого</a>
+          <a class="text-on-primary/80 hover:text-white transition-colors" href="#">Үйлчилгээний нөхцөл</a>
+          <a class="text-on-primary/80 hover:text-white transition-colors" href="#">Түгээмэл асуулт</a>
+        </div>
+      </div>
+      <div class="flex flex-col gap-md">
+        <h6 class="font-label-md text-secondary-container uppercase">Холбоо барих</h6>
+        <div class="flex items-center gap-md text-on-primary/80">
+          <span class="material-symbols-outlined text-secondary-container" data-icon="call">call</span>
+          <span>+(976) 80057999, <span>
+              <span>+976 80841777</span>
+        </div>
+        <div class="flex items-center gap-md text-on-primary/80">
+          <span class="material-symbols-outlined text-secondary-container" data-icon="mail">mail</span>
+          <span>autoterminal14@gmail.com</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+ <div class="fixed bottom-0 left-0 w-full flex justify-around items-center py-2 px-4 bg-surface-container-lowest border-t border-outline-variant/30 shadow-[0_-4px_12px_rgba(0,0,0,0.1)] md:hidden z-50">
+  <a class="flex flex-col items-center justify-center text-outline hover:text-primary transition-all active:scale-95" href="index.html">
+    <span class="material-symbols-outlined" data-icon="home">home</span>
+    <span class="font-label-sm text-label-sm">Нүүр</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-outline hover:text-primary transition-all active:scale-95" href="about.html">
+    <span class="material-symbols-outlined" data-icon="info">info</span>
+    <span class="font-label-sm text-label-sm">Бидний тухай</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-primary transition-all active:scale-95" href="services.html">
+    <span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+    <span class="font-label-sm text-label-sm font-bold">Үйлчилгээ</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-outline hover:text-primary transition-all active:scale-95" href="contact.html">
+    <span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+    <span class="font-label-sm text-label-sm">Холбоо</span>
+  </a>
+</div>
+
+
+  <div id="image-lightbox"
+    class="fixed inset-0 z-[100] hidden bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 transition-all duration-300 opacity-0">
+    <button id="close-lightbox" class="absolute top-6 right-6 text-white hover:text-secondary-fixed transition-colors">
+      <span class="material-symbols-outlined text-[40px]">close</span>
+    </button>
+    <div class="max-w-5xl w-full h-full flex items-center justify-center">
+      <img id="lightbox-img" src="" alt="Zoomed map"
+        class="max-w-full max-h-full object-contain rounded-lg shadow-2xl transition-transform duration-300 scale-95">
+    </div>
+  </div>
+  <script class="">
+    document.addEventListener('DOMContentLoaded', () => {
+      const lightbox = document.getElementById('image-lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const closeBtn = document.getElementById('close-lightbox');
+      const routeImages = document.querySelectorAll('.md\\:col-span-8 img');
+
+      const openLightbox = (src) => {
+        lightboxImg.src = src;
+        lightbox.classList.remove('hidden');
+        setTimeout(() => {
+          lightbox.classList.add('opacity-100');
+          lightboxImg.classList.add('scale-100');
+          lightboxImg.classList.remove('scale-95');
+        }, 10);
+      };
+
+      const closeLightbox = () => {
+        lightbox.classList.remove('opacity-100');
+        lightboxImg.classList.remove('scale-100');
+        lightboxImg.classList.add('scale-95');
+        setTimeout(() => {
+          lightbox.classList.add('hidden');
+        }, 300);
+      };
+
+      routeImages.forEach(img => {
+        img.classList.add('cursor-pointer', 'hover:opacity-90', 'transition-opacity');
+        img.addEventListener('click', () => openLightbox(img.src));
+      });
+
+      closeBtn.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target.parentElement === lightbox) closeLightbox();
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) closeLightbox();
+      });
+    });
+  </script>
+  <script src="assets/js/main.js"></script>
+  </body>
+</html>
+</body>
+
+</html>

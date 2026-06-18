@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="mn">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Нэвтрэх | Авто Терминал Трейд</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDXxCdM85PWDxqKTFu_bRWJAuiylKKKbTc",
+      authDomain: "auto-terminal-trade.firebaseapp.com",
+      databaseURL: "https://auto-terminal-trade-default-rtdb.firebaseio.com",
+      projectId: "auto-terminal-trade",
+      storageBucket: "auto-terminal-trade.firebasestorage.app",
+      messagingSenderId: "938939698580",
+      appId: "1:938939698580:web:c8c97d3f471baae2729381",
+      measurementId: "G-E1T4E46Z6H"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userDoc = await getDoc(doc(db, "users", user.uid));
+        if (userDoc.exists()) {
+          const role = userDoc.data().role;
+          window.location.href = role === 'admin' ? 'admin.html' : 'dashboard.html';
+        }
+      }
+    });
+
+    window.handleLogin = async function() {
+      const idInput = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const email = idInput.includes('@') ? idInput : idInput + '@attrade.mn';
+      const errorEl = document.getElementById('error-msg');
+      const btn = document.getElementById('login-btn');
+
+      if (!idInput || !password) {
+        errorEl.textContent = 'ID болон нууц үгээ оруулна уу.';
+        errorEl.classList.remove('hidden');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.innerHTML = '<span class="material-symbols-outlined text-sm animate-spin">progress_activity</span> Нэвтэрч байна...';
+      errorEl.classList.add('hidden');
+
+      try {
+        const cred = await signInWithEmailAndPassword(auth, email, password);
+        const userDoc = await getDoc(doc(db, "users", cred.user.uid));
+        if (userDoc.exists()) {
+          const role = userDoc.data().role;
+          window.location.href = role === 'admin' ? 'admin.html' : 'dashboard.html';
+        } else {
+          errorEl.textContent = 'Хэрэглэгчийн мэдээлэл олдсонгүй.';
+          errorEl.classList.remove('hidden');
+        }
+      } catch (err) {
+        let msg = 'Нэвтрэхэд алдаа гарлаа.';
+        if (err.code === 'auth/invalid-credential' || err.code === 'auth/wrong-password') msg = 'ID эсвэл нууц үг буруу байна.';
+        if (err.code === 'auth/user-not-found') msg = 'Хэрэглэгч бүртгэлгүй байна.';
+        if (err.code === 'auth/too-many-requests') msg = 'Хэт олон оролдлого. Түр хүлээнэ үү.';
+        errorEl.textContent = msg;
+        errorEl.classList.remove('hidden');
+      }
+
+      btn.disabled = false;
+      btn.innerHTML = '<span class="material-symbols-outlined text-sm">login</span> Нэвтрэх';
+    };
+  </script>
+  <style>
+    body { font-family: 'Inter', sans-serif; background: #f0f4f8; }
+    .login-card { animation: fadeUp 0.4s ease; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    input:focus { outline: none; border-color: #002045; box-shadow: 0 0 0 3px rgba(0,32,69,0.12); }
+    .animate-spin { animation: spin 1s linear infinite; display: inline-block; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center px-4">
+  <div class="login-card w-full max-w-sm">
+    <div class="text-center mb-6 md:mb-8">
+      <div class="inline-flex items-center justify-center w-14 h-14 md:w-16 md:h-16 rounded-2xl mb-3 shadow-lg">
+        <img alt="ATT Logo" class="h-14 w-auto object-contain" src="assets/images/logo.png" />
+      </div>
+      <h1 class="text-lg md:text-xl font-bold text-[#002045]">Авто Терминал Трейд ХХК</h1>
+      <p class="text-sm text-gray-500 mt-1">Ажилтны портал</p>
+    </div>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-200 p-6 md:p-8">
+      <h2 class="text-base md:text-lg font-semibold text-gray-800 mb-5">Нэвтрэх</h2>
+
+      <div id="error-msg" class="hidden mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700"></div>
+
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5">Ажилтны ID</label>
+          <input id="email" type="text" placeholder="Жишээ: 123456"
+            class="w-full h-12 px-4 border border-gray-300 rounded-xl text-sm transition-all"
+            onkeydown="if(event.key==='Enter') document.getElementById('password').focus()">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-wide mb-1.5">Нууц үг</label>
+          <div class="relative">
+            <input id="password" type="password" placeholder="••••••••"
+              class="w-full h-12 px-4 pr-12 border border-gray-300 rounded-xl text-sm transition-all"
+              onkeydown="if(event.key==='Enter') handleLogin()">
+            <button onclick="togglePass()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1">
+              <span class="material-symbols-outlined text-xl" id="pass-eye">visibility</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <button id="login-btn" onclick="handleLogin()"
+        class="mt-5 w-full h-12 bg-[#002045] hover:bg-[#002d5c] text-white rounded-xl font-medium text-sm flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-60">
+        <span class="material-symbols-outlined text-sm">login</span> Нэвтрэх
+      </button>
+    </div>
+
+    <p class="text-center text-xs text-gray-400 mt-5">© 2026 Авто Терминал Трейд ХХК</p>
+  </div>
+
+  <script>
+    function togglePass() {
+      const inp = document.getElementById('password');
+      const eye = document.getElementById('pass-eye');
+      if (inp.type === 'password') { inp.type = 'text'; eye.textContent = 'visibility_off'; }
+      else { inp.type = 'password'; eye.textContent = 'visibility'; }
+    }
+  </script>
+</body>
+</html>

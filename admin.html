@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Админ | ATT Портал</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .sidebar-link.active { background: rgba(255,255,255,0.15); }
+    .card-enter { animation: fadeUp 0.3s ease; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+    .animate-spin { animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    input:focus, textarea:focus, select:focus { outline: none; border-color: #002045; box-shadow: 0 0 0 3px rgba(0,32,69,0.1); }
+    .bottom-nav-item.active span { color: #002045; }
+    .img-thumb { width: 80px; height: 80px; object-fit: cover; border-radius: 0.5rem; flex-shrink: 0; cursor: pointer; }
+    .img-thumb-wrap { position: relative; display: inline-block; }
+    .img-thumb-del { position: absolute; top: -6px; right: -6px; width: 20px; height: 20px; background: #ef4444; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; border: 2px solid white; }
+    .img-thumb-del span { font-size: 13px; color: white; line-height: 1; }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen pb-20 md:pb-0 md:flex">
+
+  <!-- Desktop Sidebar -->
+  <aside class="w-56 bg-[#002045] text-white flex-col hidden md:flex shrink-0 sticky top-0 h-screen">
+    <div class="p-5 border-b border-white/10">
+      <div class="flex items-center gap-2 mb-1">
+        <div class="w-7 h-7 bg-white/20 rounded-lg flex items-center justify-center">
+          <span class="material-symbols-outlined text-sm">directions_bus</span>
+        </div>
+        <span class="font-bold text-sm">ATT Админ</span>
+      </div>
+      <p class="text-xs text-blue-300" id="admin-email">—</p>
+    </div>
+    <nav class="flex-1 p-3 space-y-1">
+      <button onclick="showSection('overview')" id="nav-overview" class="sidebar-link active w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-left hover:bg-white/10 transition-all">
+        <span class="material-symbols-outlined text-base">dashboard</span> Хяналтын самбар
+      </button>
+      <button onclick="showSection('news')" id="nav-news" class="sidebar-link w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-left hover:bg-white/10 transition-all">
+        <span class="material-symbols-outlined text-base">newspaper</span> Мэдээлэл
+      </button>
+      <button onclick="showSection('training')" id="nav-training" class="sidebar-link w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-left hover:bg-white/10 transition-all">
+        <span class="material-symbols-outlined text-base">school</span> Сургалт
+      </button>
+      <button onclick="showSection('users')" id="nav-users" class="sidebar-link w-full flex items-center gap-2.5 px-3 py-2.5 rounded-lg text-sm text-left hover:bg-white/10 transition-all">
+        <span class="material-symbols-outlined text-base">group</span> Ажилтнууд
+      </button>
+    </nav>
+    <div class="p-3">
+      <button onclick="handleLogout()" class="w-full flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm text-white/60 hover:bg-white/10 hover:text-white transition-all">
+        <span class="material-symbols-outlined text-base">logout</span> Гарах
+      </button>
+    </div>
+  </aside>
+
+  <div class="flex-1 flex flex-col min-w-0">
+    <header class="md:hidden bg-white border-b border-gray-200 px-4 h-14 flex items-center justify-between sticky top-0 z-40">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 bg-[#002045] rounded-lg flex items-center justify-center">
+          <span class="material-symbols-outlined text-white text-sm">directions_bus</span>
+        </div>
+        <span class="font-bold text-[#002045] text-sm">ATT Админ</span>
+      </div>
+      <button onclick="handleLogout()" class="text-gray-400 hover:text-red-500">
+        <span class="material-symbols-outlined text-xl">logout</span>
+      </button>
+    </header>
+
+    <main class="flex-1 p-4 md:p-6 max-w-4xl w-full mx-auto">
+
+      <!-- OVERVIEW -->
+      <div id="sec-overview" class="card-enter">
+        <h2 class="text-lg md:text-xl font-bold text-[#002045] mb-4 md:mb-6">Хяналтын самбар</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
+          <div class="bg-white rounded-xl border border-gray-200 p-3 md:p-4 text-center">
+            <p class="text-xl md:text-2xl font-bold text-[#002045]" id="stat-users">—</p>
+            <p class="text-xs text-gray-400 mt-1">Нийт ажилтан</p>
+          </div>
+          <div class="bg-white rounded-xl border border-gray-200 p-3 md:p-4 text-center">
+            <p class="text-xl md:text-2xl font-bold text-[#002045]" id="stat-news">—</p>
+            <p class="text-xs text-gray-400 mt-1">Мэдээлэл</p>
+          </div>
+          <div class="bg-white rounded-xl border border-gray-200 p-3 md:p-4 text-center">
+            <p class="text-xl md:text-2xl font-bold text-[#002045]" id="stat-trainings">—</p>
+            <p class="text-xs text-gray-400 mt-1">Сургалт</p>
+          </div>
+          <div class="bg-white rounded-xl border border-gray-200 p-3 md:p-4 text-center">
+            <p class="text-xl md:text-2xl font-bold text-green-600" id="stat-completed">—</p>
+            <p class="text-xs text-gray-400 mt-1">Дууссан</p>
+          </div>
+        </div>
+        <div class="bg-[#002045] rounded-2xl p-4 md:p-6 text-white">
+          <h3 class="font-semibold mb-3 text-sm md:text-base">Хурдан үйлдэл</h3>
+          <div class="flex flex-wrap gap-2">
+            <button onclick="showSection('news')" class="px-3 md:px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-xs md:text-sm flex items-center gap-1.5 transition-all active:scale-95">
+              <span class="material-symbols-outlined text-base">add</span> Мэдээлэл
+            </button>
+            <button onclick="showSection('training')" class="px-3 md:px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-xs md:text-sm flex items-center gap-1.5 transition-all active:scale-95">
+              <span class="material-symbols-outlined text-base">add</span> Сургалт
+            </button>
+            <button onclick="showSection('users')" class="px-3 md:px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg text-xs md:text-sm flex items-center gap-1.5 transition-all active:scale-95">
+              <span class="material-symbols-outlined text-base">person_add</span> Ажилтан
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEWS SECTION -->
+      <div id="sec-news" class="hidden card-enter">
+        <div class="flex items-center justify-between mb-4 md:mb-6">
+          <h2 class="text-lg md:text-xl font-bold text-[#002045]">Мэдээлэл</h2>
+          <button onclick="openNewsModal()" class="flex items-center gap-1.5 bg-[#002045] text-white px-3 md:px-4 py-2 rounded-lg text-sm hover:bg-[#002d5c] transition-all active:scale-95">
+            <span class="material-symbols-outlined text-base">add</span> Нэмэх
+          </button>
+        </div>
+        <div id="news-admin-list" class="space-y-3">
+          <div class="text-center py-8 text-gray-400 text-sm">Уншиж байна...</div>
+        </div>
+      </div>
+
+      <!-- TRAINING SECTION -->
+      <div id="sec-training" class="hidden card-enter">
+        <div class="flex items-center justify-between mb-4 md:mb-6">
+          <h2 class="text-lg md:text-xl font-bold text-[#002045]">Сургалт</h2>
+          <button onclick="openTrainingModal()" class="flex items-center gap-1.5 bg-[#002045] text-white px-3 md:px-4 py-2 rounded-lg text-sm hover:bg-[#002d5c] transition-all active:scale-95">
+            <span class="material-symbols-outlined text-base">add</span> Нэмэх
+          </button>
+        </div>
+        <div id="training-admin-list" class="space-y-3">
+          <div class="text-center py-8 text-gray-400 text-sm">Уншиж байна...</div>
+        </div>
+      </div>
+
+      <!-- USERS SECTION -->
+      <div id="sec-users" class="hidden card-enter">
+        <div class="flex items-center justify-between mb-4 md:mb-6">
+          <h2 class="text-lg md:text-xl font-bold text-[#002045]">Ажилтнууд</h2>
+          <button onclick="openAddUserModal()" class="flex items-center gap-1.5 bg-[#002045] text-white px-3 md:px-4 py-2 rounded-lg text-sm hover:bg-[#002d5c] transition-all active:scale-95">
+            <span class="material-symbols-outlined text-base">person_add</span> Нэмэх
+          </button>
+        </div>
+        <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4 text-xs md:text-sm text-amber-700">
+          <span class="material-symbols-outlined text-base align-middle mr-1">info</span>
+          Firebase → Authentication → Add user дээр үүсгэж UID-г хуулна.
+        </div>
+        <div id="users-list" class="space-y-2">
+          <div class="text-center py-8 text-gray-400 text-sm">Уншиж байна...</div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Mobile Bottom Nav -->
+  <div class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex md:hidden z-40">
+    <button onclick="showSection('overview')" id="mob-overview" class="bottom-nav-item active flex-1 flex flex-col items-center py-2 gap-0.5">
+      <span class="material-symbols-outlined text-xl text-[#002045]">dashboard</span>
+      <span class="text-[10px] text-[#002045] font-medium">Самбар</span>
+    </button>
+    <button onclick="showSection('news')" id="mob-news" class="bottom-nav-item flex-1 flex flex-col items-center py-2 gap-0.5">
+      <span class="material-symbols-outlined text-xl text-gray-400">newspaper</span>
+      <span class="text-[10px] text-gray-400">Мэдээ</span>
+    </button>
+    <button onclick="showSection('training')" id="mob-training" class="bottom-nav-item flex-1 flex flex-col items-center py-2 gap-0.5">
+      <span class="material-symbols-outlined text-xl text-gray-400">school</span>
+      <span class="text-[10px] text-gray-400">Сургалт</span>
+    </button>
+    <button onclick="showSection('users')" id="mob-users" class="bottom-nav-item flex-1 flex flex-col items-center py-2 gap-0.5">
+      <span class="material-symbols-outlined text-xl text-gray-400">group</span>
+      <span class="text-[10px] text-gray-400">Ажилтан</span>
+    </button>
+  </div>
+
+  <!-- News Modal -->
+  <div id="news-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-end md:items-center justify-center p-0 md:p-4">
+    <div class="bg-white rounded-t-2xl md:rounded-2xl w-full md:max-w-md p-5 md:p-6 max-h-[90vh] overflow-y-auto">
+      <div class="w-10 h-1 bg-gray-200 rounded-full mx-auto mb-4 md:hidden"></div>
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="font-bold text-base md:text-lg text-[#002045]" id="news-modal-title">Мэдээлэл нэмэх</h3>
+        <button onclick="closeAllModals()" class="text-gray-400 hover:text-gray-600"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <input type="hidden" id="news-edit-id">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1.5">Гарчиг <span class="text-red-400">*</span></label>
+          <input id="news-title" type="text" placeholder="Мэдэгдлийн гарчиг" class="w-full h-11 px-3 border border-gray-300 rounded-xl text-sm transition-all">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1.5">Агуулга <span class="text-red-400">*</span></label>
+          <textarea id="news-content" rows="4" placeholder="Мэдэгдлийн агуулга..." class="w-full px-3 py-2 border border-gray-300 rounded-xl text-sm resize-none transition-all"></textarea>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1.5">Дүрс (Material icon)</label>
+          <input id="news-icon" type="text" placeholder="article, warning, info..." class="w-full h-11 px-3 border border-gray-300 rounded-xl text-sm transition-all" value="article">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1.5">Зурагнууд (тус бүр 2MB хүртэл)</label>
+          <label class="flex items-center gap-2 cursor-pointer w-full px-3 py-2.5 border border-dashed border-gray-300 rounded-xl text-sm text-gray-500 hover:border-[#002045] hover:text-[#002045] transition-all">
+            <span class="material-symbols-outlined text-base">add_photo_alternate</span> Зураг нэмэх
+            <input id="news-image" type="file" accept="image/*" multiple class="hidden" onchange="addImages('news-image','news-img-grid','news')">
+          </label>
+          <div id="news-img-grid" class="flex flex-wrap gap-2 mt-2"></div>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1.5">Хавсралт файл (900KB хүртэл)</label>
+          <input id="news-file" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx" class="w-full px-3 py-2 border border-gray-300 rounded-xl text-sm bg-white">
+        </div>
+      </div>
+      <div id="news-error" class="hidden mt-3 text-sm text-red-500"></div>
+      <div class="flex gap-2 mt-5">
+        <button onclick="closeAllModals()" class="flex-1 h-11 border border-gray-300 rounded-xl text-sm hover:bg-gray-50 transition-all">Болих</button>
+        <button onclick="saveNews()" id="save-news-btn" class="flex-1 h-11 bg-[#002045] text-white rounded-xl text-sm hover:bg-[#002d5c] transition-all active:scale-95">Хадгалах</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Training Modal -->
+  <div id="training-modal-admin" class="fixed inset-0 bg-black/50 z-50 hidden flex items-end md:items-center justify-center p-0 md:p-4">
+    <div class="bg-white rounded-t-2xl md:rounded-2xl w-full md:max-w-md p-5 md:p-6 max-h-[90vh] overflow-y-auto">
+      <div class="w-10 h-1 bg-gray-200 rounded-full mx-auto mb-4 md:hidden"></div>
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="font-bold text-base md:text-lg text-[#002045]" id="tr-modal-title">Сургалт нэмэх</h3>
+        <button onclick="closeAllModals()" class="text-gray-400 hover:text-gray-600"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <input type="hidden" id="tr-edit-id">
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1.5">Сургалтын нэр <span class="text-red-400">*</span></label>
+          <input id="tr-title" type="text" placeholder="Сургалтын гарчиг" class="w-full h-11 px-3 border border-gray-300 rounded-xl text-sm transition-all">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1.5">Тайлбар</label>
+          <textarea id="tr-desc" rows="3" placeholder="Сургалтын агуулга..." class="w-full px-3 py-2 border border-gray-300 rounded-xl text-sm resize-none transition-all"></textarea>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-medium text-gray-500 mb-1.5">Огноо</label>
+            <input id="tr-date" type="date" class="w-full h-11 px-3 border border-gray-300 rounded-xl text-sm transition-all">
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-500 mb-1.5">Хугацаа</label>
+            <input id="tr-duration" type="text" placeholder="2 цаг..." class="w-full h-11 px-3 border border-gray-300 rounded-xl text-sm transition-all">
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1.5">Зурагнууд (тус бүр 2MB хүртэл)</label>
+          <label class="flex items-center gap-2 cursor-pointer w-full px-3 py-2.5 border border-dashed border-gray-300 rounded-xl text-sm text-gray-500 hover:border-[#002045] hover:text-[#002045] transition-all">
+            <span class="material-symbols-outlined text-base">add_photo_alternate</span> Зураг нэмэх
+            <input id="tr-image" type="file" accept="image/*" multiple class="hidden" onchange="addImages('tr-image','tr-img-grid','tr')">
+          </label>
+          <div id="tr-img-grid" class="flex flex-wrap gap-2 mt-2"></div>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1.5">Материал файл (900KB хүртэл)</label>
+          <input id="tr-file" type="file" accept=".pdf,.doc,.docx,.ppt,.pptx" class="w-full px-3 py-2 border border-gray-300 rounded-xl text-sm bg-white">
+        </div>
+      </div>
+      <div id="training-error" class="hidden mt-3 text-sm text-red-500"></div>
+      <div class="flex gap-2 mt-5">
+        <button onclick="closeAllModals()" class="flex-1 h-11 border border-gray-300 rounded-xl text-sm hover:bg-gray-50 transition-all">Болих</button>
+        <button onclick="saveTraining()" id="save-training-btn" class="flex-1 h-11 bg-[#002045] text-white rounded-xl text-sm hover:bg-[#002d5c] transition-all active:scale-95">Хадгалах</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add User Modal -->
+  <div id="add-user-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-end md:items-center justify-center p-0 md:p-4">
+    <div class="bg-white rounded-t-2xl md:rounded-2xl w-full md:max-w-md p-5 md:p-6 max-h-[90vh] overflow-y-auto">
+      <div class="w-10 h-1 bg-gray-200 rounded-full mx-auto mb-4 md:hidden"></div>
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="font-bold text-base md:text-lg text-[#002045]">Ажилтан бүртгэх</h3>
+        <button onclick="closeAllModals()" class="text-gray-400 hover:text-gray-600"><span class="material-symbols-outlined">close</span></button>
+      </div>
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4 text-xs text-blue-700">
+        Firebase → Authentication → Add user дээр үүсгэж UID-г хуулна.
+      </div>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1.5">Firebase UID <span class="text-red-400">*</span></label>
+          <input id="user-uid" type="text" placeholder="UID" class="w-full h-11 px-3 border border-gray-300 rounded-xl text-sm transition-all">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1.5">Бүтэн нэр <span class="text-red-400">*</span></label>
+          <input id="user-fullname" type="text" placeholder="Овог нэр" class="w-full h-11 px-3 border border-gray-300 rounded-xl text-sm transition-all">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1.5">Ажилтны ID</label>
+          <input id="user-empid" type="text" placeholder="123456" class="w-full h-11 px-3 border border-gray-300 rounded-xl text-sm transition-all">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1.5">Хэлтэс / Албан тушаал</label>
+          <input id="user-dept" type="text" placeholder="Жолооч, Диспетчер..." class="w-full h-11 px-3 border border-gray-300 rounded-xl text-sm transition-all">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1.5">Эрх</label>
+          <select id="user-role-select" class="w-full h-11 px-3 border border-gray-300 rounded-xl text-sm transition-all bg-white">
+            <option value="employee">Ажилтан</option>
+            <option value="admin">Админ</option>
+          </select>
+        </div>
+      </div>
+      <div id="user-error" class="hidden mt-3 text-sm text-red-500"></div>
+      <div class="flex gap-2 mt-5">
+        <button onclick="closeAllModals()" class="flex-1 h-11 border border-gray-300 rounded-xl text-sm hover:bg-gray-50 transition-all">Болих</button>
+        <button onclick="saveUser()" id="save-user-btn" class="flex-1 h-11 bg-[#002045] text-white rounded-xl text-sm hover:bg-[#002d5c] transition-all active:scale-95">Хадгалах</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Confirm Delete -->
+  <div id="confirm-modal" class="fixed inset-0 bg-black/50 z-[60] hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl w-full max-w-xs p-6 text-center">
+      <div class="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
+        <span class="material-symbols-outlined text-red-500 text-3xl">delete</span>
+      </div>
+      <h3 class="font-bold text-gray-800 mb-2">Устгах уу?</h3>
+      <p class="text-sm text-gray-500 mb-6">Энэ үйлдлийг буцаах боломжгүй.</p>
+      <div class="flex gap-2">
+        <button onclick="document.getElementById('confirm-modal').classList.add('hidden')" class="flex-1 h-11 border border-gray-300 rounded-xl text-sm">Болих</button>
+        <button id="confirm-delete-btn" class="flex-1 h-11 bg-red-500 text-white rounded-xl text-sm hover:bg-red-600 transition-all">Устгах</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image lightbox -->
+  <div id="lightbox" class="fixed inset-0 bg-black/80 z-[70] hidden flex items-center justify-center p-4" onclick="document.getElementById('lightbox').classList.add('hidden')">
+    <img id="lightbox-img" src="" class="max-w-full max-h-full rounded-xl object-contain">
+  </div>
+
+  <script>
+    const imageStores = { news: [], tr: [] };
+
+    function addImages(inputId, gridId, storeKey) {
+      const input = document.getElementById(inputId);
+      const errEl = document.getElementById(storeKey === 'news' ? 'news-error' : 'training-error');
+      Array.from(input.files).forEach(file => {
+        if (file.size > 2 * 1024 * 1024) {
+          errEl.textContent = `"${file.name}" файл 2MB-аас их байна.`;
+          errEl.classList.remove('hidden');
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = e => {
+          imageStores[storeKey].push({ dataURL: e.target.result, name: file.name });
+          renderImageGrid(gridId, storeKey);
+        };
+        reader.readAsDataURL(file);
+      });
+      input.value = '';
+    }
+
+    function renderImageGrid(gridId, storeKey) {
+      const grid = document.getElementById(gridId);
+      grid.innerHTML = '';
+      imageStores[storeKey].forEach((img, idx) => {
+        const wrap = document.createElement('div');
+        wrap.className = 'img-thumb-wrap';
+        wrap.innerHTML = `
+          <img src="${img.dataURL}" class="img-thumb" onclick="openLightbox('${storeKey}',${idx})">
+          <div class="img-thumb-del" onclick="removeImage('${storeKey}',${idx},'${gridId}')">
+            <span class="material-symbols-outlined" style="font-size:13px;color:white">close</span>
+          </div>`;
+        grid.appendChild(wrap);
+      });
+    }
+
+    function openLightbox(storeKey, idx) {
+      document.getElementById('lightbox-img').src = imageStores[storeKey][idx].dataURL;
+      document.getElementById('lightbox').classList.remove('hidden');
+    }
+
+    function removeImage(storeKey, idx, gridId) {
+      imageStores[storeKey].splice(idx, 1);
+      renderImageGrid(gridId, storeKey);
+    }
+
+    function clearImageStore(storeKey, gridId) {
+      imageStores[storeKey] = [];
+      document.getElementById(gridId).innerHTML = '';
+    }
+  </script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, getDoc, setDoc, updateDoc, serverTimestamp, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDXxCdM85PWDxqKTFu_bRWJAuiylKKKbTc",
+      authDomain: "auto-terminal-trade.firebaseapp.com",
+      databaseURL: "https://auto-terminal-trade-default-rtdb.firebaseio.com",
+      projectId: "auto-terminal-trade",
+      storageBucket: "auto-terminal-trade.firebasestorage.app",
+      messagingSenderId: "938939698580",
+      appId: "1:938939698580:web:c8c97d3f471baae2729381",
+      measurementId: "G-E1T4E46Z6H"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    function fileToBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
+      });
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) { window.location.href = 'login.html'; return; }
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (!userDoc.exists() || userDoc.data().role !== 'admin') {
+        window.location.href = 'dashboard.html'; return;
+      }
+      document.getElementById('admin-email').textContent = user.email;
+      loadStats();
+    });
+
+    async function loadStats() {
+      const [usersSnap, newsSnap, trainSnap] = await Promise.all([
+        getDocs(collection(db, "users")),
+        getDocs(collection(db, "news")),
+        getDocs(collection(db, "trainings"))
+      ]);
+      document.getElementById('stat-users').textContent = usersSnap.size;
+      document.getElementById('stat-news').textContent = newsSnap.size;
+      document.getElementById('stat-trainings').textContent = trainSnap.size;
+      let completedCount = 0;
+      usersSnap.forEach(d => { completedCount += (d.data().completedTrainings || []).length; });
+      document.getElementById('stat-completed').textContent = completedCount;
+    }
+
+    async function loadNewsAdmin() {
+      const el = document.getElementById('news-admin-list');
+      try {
+        const q = query(collection(db, "news"), orderBy("createdAt", "desc"));
+        const snap = await getDocs(q);
+        if (snap.empty) { el.innerHTML = '<div class="text-center py-8 text-gray-400 text-sm">Мэдээлэл байхгүй байна.</div>'; return; }
+        el.innerHTML = '';
+        snap.forEach(d => {
+          const data = d.data();
+          const imgs = data.images && data.images.length > 0 ? data.images : (data.imageURL ? [{ dataURL: data.imageURL }] : []);
+          let imgHtml = '';
+          if (imgs.length === 1) {
+            imgHtml = `<div class="mb-3"><img src="${imgs[0].dataURL}" class="w-full h-40 object-cover rounded-xl cursor-pointer" onclick="document.getElementById('lightbox-img').src='${imgs[0].dataURL}';document.getElementById('lightbox').classList.remove('hidden')"></div>`;
+          } else if (imgs.length > 1) {
+            imgHtml = `<div class="flex gap-2 flex-wrap mb-3">${imgs.map(img => `<img src="${img.dataURL}" class="h-24 w-24 object-cover rounded-lg cursor-pointer" onclick="document.getElementById('lightbox-img').src='${img.dataURL}';document.getElementById('lightbox').classList.remove('hidden')">`).join('')}</div>`;
+          }
+          el.innerHTML += `
+            <div class="bg-white rounded-xl border border-gray-200 p-4 card-enter">
+              ${imgHtml}
+              <div class="flex items-start gap-3">
+                <div class="w-9 h-9 bg-[#002045]/10 rounded-lg flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-[#002045] text-base">${data.icon || 'article'}</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <p class="font-semibold text-gray-800 text-sm truncate">${data.title}</p>
+                  <p class="text-xs text-gray-400 mt-0.5 line-clamp-1">${data.content}</p>
+                  ${data.fileURL ? `<span class="text-xs text-[#002045] flex items-center gap-1 mt-1"><span class="material-symbols-outlined text-sm">attach_file</span>${data.fileName || 'Файл'}</span>` : ''}
+                </div>
+                <div class="flex gap-1 shrink-0">
+                  <button onclick="editNews('${d.id}', ${JSON.stringify(data).replace(/'/g,"&#39;")})" class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-blue-50 hover:text-blue-600 transition-all">
+                    <span class="material-symbols-outlined text-base">edit</span>
+                  </button>
+                  <button onclick="deleteItem('news','${d.id}')" class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-red-50 hover:text-red-500 transition-all">
+                    <span class="material-symbols-outlined text-base">delete</span>
+                  </button>
+                </div>
+              </div>
+            </div>`;
+        });
+      } catch(e) { el.innerHTML = '<div class="text-center py-4 text-red-400 text-sm">Алдаа гарлаа: ' + e.message + '</div>'; }
+    }
+
+    window.openNewsModal = function() {
+      document.getElementById('news-modal-title').textContent = 'Мэдээлэл нэмэх';
+      document.getElementById('news-edit-id').value = '';
+      document.getElementById('news-title').value = '';
+      document.getElementById('news-content').value = '';
+      document.getElementById('news-icon').value = 'article';
+      document.getElementById('news-file').value = '';
+      document.getElementById('news-image').value = '';
+      clearImageStore('news', 'news-img-grid');
+      document.getElementById('news-error').classList.add('hidden');
+      document.getElementById('news-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.editNews = function(id, data) {
+      document.getElementById('news-modal-title').textContent = 'Мэдээлэл засах';
+      document.getElementById('news-edit-id').value = id;
+      document.getElementById('news-title').value = data.title || '';
+      document.getElementById('news-content').value = data.content || '';
+      document.getElementById('news-icon').value = data.icon || 'article';
+      document.getElementById('news-file').value = '';
+      document.getElementById('news-image').value = '';
+      // Load existing images into store
+      const imgs = data.images && data.images.length > 0 ? data.images : (data.imageURL ? [{ dataURL: data.imageURL, name: 'image' }] : []);
+      imageStores.news = imgs.map(i => ({ dataURL: i.dataURL, name: i.name || 'image' }));
+      renderImageGrid('news-img-grid', 'news');
+      document.getElementById('news-error').classList.add('hidden');
+      document.getElementById('news-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.saveNews = async function() {
+      const title = document.getElementById('news-title').value.trim();
+      const content = document.getElementById('news-content').value.trim();
+      const icon = document.getElementById('news-icon').value.trim() || 'article';
+      const fileInput = document.getElementById('news-file');
+      const editId = document.getElementById('news-edit-id').value;
+      const errEl = document.getElementById('news-error');
+      if (!title || !content) { errEl.textContent = 'Гарчиг болон агуулга заавал бөглөнө.'; errEl.classList.remove('hidden'); return; }
+      const btn = document.getElementById('save-news-btn');
+      btn.disabled = true; btn.textContent = 'Хадгалж байна...';
+      try {
+        const images = imageStores.news.map(i => ({ dataURL: i.dataURL, name: i.name }));
+        let fileURL = editId ? '' : '';
+        let fileName = '';
+        // If editing, keep old file unless new one selected
+        if (fileInput.files.length > 0) {
+          const file = fileInput.files[0];
+          if (file.size > 900 * 1024) { errEl.textContent = 'Файл 900KB-аас бага байх ёстой.'; errEl.classList.remove('hidden'); btn.disabled = false; btn.textContent = 'Хадгалах'; return; }
+          fileName = file.name;
+          btn.textContent = 'Файл уншиж байна...';
+          fileURL = await fileToBase64(file);
+        }
+
+        if (editId) {
+          const updateData = { title, content, icon, images };
+          if (fileInput.files.length > 0) { updateData.fileURL = fileURL; updateData.fileName = fileName; }
+          await updateDoc(doc(db, "news", editId), updateData);
+        } else {
+          await addDoc(collection(db, "news"), { title, content, icon, fileURL, fileName, images, createdAt: serverTimestamp() });
+        }
+        closeAllModals();
+        loadNewsAdmin();
+        loadStats();
+      } catch(e) { errEl.textContent = 'Алдаа гарлаа: ' + e.message; errEl.classList.remove('hidden'); }
+      btn.disabled = false; btn.textContent = 'Хадгалах';
+    };
+
+    async function loadTrainingAdmin() {
+      const el = document.getElementById('training-admin-list');
+      try {
+        const q = query(collection(db, "trainings"), orderBy("createdAt", "desc"));
+        const snap = await getDocs(q);
+        const usersSnap = await getDocs(collection(db, "users"));
+        const allUsers = [];
+        usersSnap.forEach(d => { allUsers.push({ uid: d.id, ...d.data() }); });
+        if (snap.empty) { el.innerHTML = '<div class="text-center py-8 text-gray-400 text-sm">Сургалт байхгүй байна.</div>'; return; }
+        el.innerHTML = '';
+        snap.forEach(d => {
+          const data = d.data();
+          const completed = allUsers.filter(u => (u.completedTrainings || []).includes(d.id));
+          const notCompleted = allUsers.filter(u => !(u.completedTrainings || []).includes(d.id) && u.role !== 'admin');
+          const imgs = data.images && data.images.length > 0 ? data.images : (data.imageURL ? [{ dataURL: data.imageURL }] : []);
+          let imgHtml = '';
+          if (imgs.length === 1) {
+            imgHtml = `<div class="mb-3"><img src="${imgs[0].dataURL}" class="w-full h-40 object-cover rounded-xl cursor-pointer" onclick="document.getElementById('lightbox-img').src='${imgs[0].dataURL}';document.getElementById('lightbox').classList.remove('hidden')"></div>`;
+          } else if (imgs.length > 1) {
+            imgHtml = `<div class="flex gap-2 flex-wrap mb-3">${imgs.map(img => `<img src="${img.dataURL}" class="h-24 w-24 object-cover rounded-lg cursor-pointer" onclick="document.getElementById('lightbox-img').src='${img.dataURL}';document.getElementById('lightbox').classList.remove('hidden')">`).join('')}</div>`;
+          }
+          el.innerHTML += `
+            <div class="bg-white rounded-xl border border-gray-200 p-4 card-enter">
+              ${imgHtml}
+              <div class="flex items-start justify-between gap-3 mb-3">
+                <div class="flex-1 min-w-0">
+                  <h4 class="font-semibold text-gray-800 text-sm">${data.title}</h4>
+                  <p class="text-xs text-gray-400 mt-0.5">${data.date || '—'} ${data.duration ? '· ' + data.duration : ''}</p>
+                  ${data.fileURL ? `<span class="text-xs text-[#002045] flex items-center gap-1 mt-1"><span class="material-symbols-outlined text-sm">attach_file</span>${data.fileName || 'Файл'}</span>` : ''}
+                </div>
+                <div class="flex items-center gap-1.5 shrink-0">
+                  <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">${completed.length}✓</span>
+                  <span class="text-xs bg-red-50 text-red-500 px-2 py-1 rounded-full">${notCompleted.length}✗</span>
+                  <button onclick="editTraining('${d.id}', ${JSON.stringify(data).replace(/'/g,"&#39;")})" class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-blue-50 hover:text-blue-600 transition-all">
+                    <span class="material-symbols-outlined text-base">edit</span>
+                  </button>
+                  <button onclick="deleteItem('trainings','${d.id}')" class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-400 hover:bg-red-50 hover:text-red-500 transition-all">
+                    <span class="material-symbols-outlined text-base">delete</span>
+                  </button>
+                </div>
+              </div>
+              ${completed.length > 0 ? `
+              <div class="mb-2">
+                <p class="text-xs text-gray-400 mb-1.5 flex items-center gap-1"><span class="material-symbols-outlined text-green-500 text-sm">check_circle</span>Дуусгасан</p>
+                <div class="flex flex-wrap gap-1.5">${completed.map(u => `<span class="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded-full">${u.displayName || '—'}</span>`).join('')}</div>
+              </div>` : ''}
+              ${notCompleted.length > 0 ? `
+              <div>
+                <p class="text-xs text-gray-400 mb-1.5 flex items-center gap-1"><span class="material-symbols-outlined text-red-400 text-sm">pending</span>Дуусгаагүй</p>
+                <div class="flex flex-wrap gap-1.5">${notCompleted.map(u => `<span class="text-xs bg-red-50 text-red-500 px-2 py-0.5 rounded-full">${u.displayName || '—'}</span>`).join('')}</div>
+              </div>` : ''}
+            </div>`;
+        });
+      } catch(e) { el.innerHTML = '<div class="text-center py-4 text-red-400 text-sm">Алдаа гарлаа: ' + e.message + '</div>'; }
+    }
+
+    window.openTrainingModal = function() {
+      document.getElementById('tr-modal-title').textContent = 'Сургалт нэмэх';
+      document.getElementById('tr-edit-id').value = '';
+      document.getElementById('tr-title').value = '';
+      document.getElementById('tr-desc').value = '';
+      document.getElementById('tr-date').value = '';
+      document.getElementById('tr-duration').value = '';
+      document.getElementById('tr-file').value = '';
+      document.getElementById('tr-image').value = '';
+      clearImageStore('tr', 'tr-img-grid');
+      document.getElementById('training-error').classList.add('hidden');
+      document.getElementById('training-modal-admin').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.editTraining = function(id, data) {
+      document.getElementById('tr-modal-title').textContent = 'Сургалт засах';
+      document.getElementById('tr-edit-id').value = id;
+      document.getElementById('tr-title').value = data.title || '';
+      document.getElementById('tr-desc').value = data.description || '';
+      document.getElementById('tr-date').value = data.date || '';
+      document.getElementById('tr-duration').value = data.duration || '';
+      document.getElementById('tr-file').value = '';
+      document.getElementById('tr-image').value = '';
+      const imgs = data.images && data.images.length > 0 ? data.images : (data.imageURL ? [{ dataURL: data.imageURL, name: 'image' }] : []);
+      imageStores.tr = imgs.map(i => ({ dataURL: i.dataURL, name: i.name || 'image' }));
+      renderImageGrid('tr-img-grid', 'tr');
+      document.getElementById('training-error').classList.add('hidden');
+      document.getElementById('training-modal-admin').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.saveTraining = async function() {
+      const title = document.getElementById('tr-title').value.trim();
+      const description = document.getElementById('tr-desc').value.trim();
+      const date = document.getElementById('tr-date').value;
+      const duration = document.getElementById('tr-duration').value.trim();
+      const fileInput = document.getElementById('tr-file');
+      const editId = document.getElementById('tr-edit-id').value;
+      const errEl = document.getElementById('training-error');
+      if (!title) { errEl.textContent = 'Сургалтын нэр заавал бөглөнө.'; errEl.classList.remove('hidden'); return; }
+      const btn = document.getElementById('save-training-btn');
+      btn.disabled = true; btn.textContent = 'Хадгалж байна...';
+      try {
+        const images = imageStores.tr.map(i => ({ dataURL: i.dataURL, name: i.name }));
+        let fileURL = '', fileName = '';
+        if (fileInput.files.length > 0) {
+          const file = fileInput.files[0];
+          if (file.size > 900 * 1024) { errEl.textContent = 'Файл 900KB-аас бага байх ёстой.'; errEl.classList.remove('hidden'); btn.disabled = false; btn.textContent = 'Хадгалах'; return; }
+          fileName = file.name;
+          btn.textContent = 'Файл уншиж байна...';
+          fileURL = await fileToBase64(file);
+        }
+
+        if (editId) {
+          const updateData = { title, description, date, duration, images };
+          if (fileInput.files.length > 0) { updateData.fileURL = fileURL; updateData.fileName = fileName; }
+          await updateDoc(doc(db, "trainings", editId), updateData);
+        } else {
+          await addDoc(collection(db, "trainings"), { title, description, date, duration, fileURL, fileName, images, createdAt: serverTimestamp() });
+        }
+        closeAllModals();
+        loadTrainingAdmin();
+        loadStats();
+      } catch(e) { errEl.textContent = 'Алдаа гарлаа: ' + e.message; errEl.classList.remove('hidden'); }
+      btn.disabled = false; btn.textContent = 'Хадгалах';
+    };
+
+    async function loadUsers() {
+      const el = document.getElementById('users-list');
+      try {
+        const snap = await getDocs(collection(db, "users"));
+        if (snap.empty) { el.innerHTML = '<div class="text-center py-8 text-gray-400 text-sm">Ажилтан бүртгэлгүй.</div>'; return; }
+        el.innerHTML = '';
+        snap.forEach(d => {
+          const data = d.data();
+          const completed = (data.completedTrainings || []).length;
+          el.innerHTML += `
+            <div class="bg-white rounded-xl border border-gray-200 p-3 md:p-4 flex items-center gap-3 card-enter">
+              <div class="w-9 h-9 bg-[#002045] rounded-full flex items-center justify-center text-white font-bold text-sm shrink-0">
+                ${(data.displayName || '?').charAt(0).toUpperCase()}
+              </div>
+              <div class="flex-1 min-w-0">
+                <p class="font-semibold text-gray-800 text-sm truncate">${data.displayName || '—'}</p>
+                <p class="text-xs text-gray-400">${data.employeeId ? 'ID: ' + data.employeeId + ' · ' : ''}${data.department || ''}</p>
+              </div>
+              <div class="flex items-center gap-1.5 shrink-0">
+                <span class="text-xs px-2 py-0.5 rounded-full font-medium ${data.role === 'admin' ? 'bg-[#002045] text-white' : 'bg-gray-100 text-gray-600'}">${data.role === 'admin' ? 'Админ' : 'Ажилтан'}</span>
+                <span class="text-xs text-gray-400 hidden sm:block">${completed}</span>
+                <button onclick="deleteItem('users','${d.id}')" class="w-7 h-7 flex items-center justify-center rounded-lg text-gray-300 hover:bg-red-50 hover:text-red-500 transition-all">
+                  <span class="material-symbols-outlined text-base">delete</span>
+                </button>
+              </div>
+            </div>`;
+        });
+      } catch(e) { el.innerHTML = '<div class="text-center py-4 text-red-400 text-sm">Алдаа гарлаа: ' + e.message + '</div>'; }
+    }
+
+    window.openAddUserModal = function() {
+      ['user-uid','user-fullname','user-empid','user-dept'].forEach(id => document.getElementById(id).value = '');
+      document.getElementById('user-role-select').value = 'employee';
+      document.getElementById('user-error').classList.add('hidden');
+      document.getElementById('add-user-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.saveUser = async function() {
+      const uid = document.getElementById('user-uid').value.trim();
+      const displayName = document.getElementById('user-fullname').value.trim();
+      const employeeId = document.getElementById('user-empid').value.trim();
+      const department = document.getElementById('user-dept').value.trim();
+      const role = document.getElementById('user-role-select').value;
+      const errEl = document.getElementById('user-error');
+      if (!uid || !displayName) { errEl.textContent = 'UID болон нэр заавал бөглөнө.'; errEl.classList.remove('hidden'); return; }
+      const btn = document.getElementById('save-user-btn');
+      btn.disabled = true; btn.textContent = 'Хадгалж байна...';
+      try {
+        await setDoc(doc(db, "users", uid), { displayName, employeeId, department, role, completedTrainings: [], createdAt: serverTimestamp() });
+        closeAllModals();
+        loadUsers();
+        loadStats();
+      } catch(e) { errEl.textContent = 'Алдаа гарлаа: ' + e.message; errEl.classList.remove('hidden'); }
+      btn.disabled = false; btn.textContent = 'Хадгалах';
+    };
+
+    window.deleteItem = function(collectionName, id) {
+      const modal = document.getElementById('confirm-modal');
+      modal.classList.remove('hidden');
+      document.getElementById('confirm-delete-btn').onclick = async () => {
+        modal.classList.add('hidden');
+        await deleteDoc(doc(db, collectionName, id));
+        if (collectionName === 'news') loadNewsAdmin();
+        else if (collectionName === 'trainings') loadTrainingAdmin();
+        else loadUsers();
+        loadStats();
+      };
+    };
+
+    window.closeAllModals = function() {
+      ['news-modal','training-modal-admin','add-user-modal','confirm-modal'].forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.body.style.overflow = '';
+    };
+
+    window.handleLogout = async () => { await signOut(auth); window.location.href = 'login.html'; };
+
+    window.showSection = function(sec) {
+      ['overview','news','training','users'].forEach(s => {
+        document.getElementById(`sec-${s}`).classList.toggle('hidden', s !== sec);
+        const nav = document.getElementById(`nav-${s}`);
+        if (nav) nav.classList.toggle('active', s === sec);
+        const mob = document.getElementById(`mob-${s}`);
+        if (mob) {
+          const icon = mob.querySelector('.material-symbols-outlined');
+          const label = mob.querySelector('span:last-child');
+          if (s === sec) {
+            icon.classList.replace('text-gray-400','text-[#002045]');
+            label.classList.replace('text-gray-400','text-[#002045]');
+            label.classList.add('font-medium');
+          } else {
+            icon.classList.replace('text-[#002045]','text-gray-400');
+            label.classList.replace('text-[#002045]','text-gray-400');
+            label.classList.remove('font-medium');
+          }
+        }
+      });
+      if (sec === 'news') loadNewsAdmin();
+      else if (sec === 'training') loadTrainingAdmin();
+      else if (sec === 'users') loadUsers();
+    };
+  </script>
+</body>
+</html>

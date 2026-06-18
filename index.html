@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html class="light" lang="mn">
+
+<!DOCTYPE html>
+<html class="light" lang="mn">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="assets/images/favicon.png">
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-error-container": "#93000a",
+            "primary-fixed-dim": "#adc7f7",
+            "surface-container-high": "#e8e8e8",
+            "surface-bright": "#f9f9f9",
+            "inverse-on-surface": "#f0f1f1",
+            "background": "#f9f9f9",
+            "tertiary-fixed-dim": "#bcc7dd",
+            "surface-container-low": "#f3f3f4",
+            "inverse-primary": "#adc7f7",
+            "on-secondary-fixed-variant": "#673d00",
+            "primary": "#002045",
+            "surface-tint": "#455f88",
+            "primary-fixed": "#d6e3ff",
+            "on-primary-fixed-variant": "#2d476f",
+            "on-tertiary-container": "#949fb4",
+            "on-primary-container": "#86a0cd",
+            "tertiary-fixed": "#d8e3fa",
+            "on-primary-fixed": "#001b3c",
+            "surface-variant": "#e2e2e2",
+            "error": "#ba1a1a",
+            "secondary-container": "#ffb55c",
+            "outline": "#74777f",
+            "on-surface-variant": "#43474e",
+            "on-secondary-fixed": "#2b1700",
+            "outline-variant": "#c4c6cf",
+            "tertiary-container": "#2b3648",
+            "on-surface": "#1a1c1c",
+            "on-background": "#1a1c1c",
+            "inverse-surface": "#2f3131",
+            "on-tertiary-fixed": "#111c2c",
+            "on-error": "#ffffff",
+            "on-tertiary": "#ffffff",
+            "surface-container": "#eeeeee",
+            "surface": "#f9f9f9",
+            "on-primary": "#ffffff",
+            "secondary": "#875200",
+            "surface-container-lowest": "#ffffff",
+            "secondary-fixed": "#ffddba",
+            "tertiary": "#162132",
+            "surface-container-highest": "#e2e2e2",
+            "surface-dim": "#dadada",
+            "on-secondary-container": "#744600",
+            "error-container": "#ffdad6",
+            "on-secondary": "#ffffff",
+            "secondary-fixed-dim": "#ffb866",
+            "on-tertiary-fixed-variant": "#3c475a",
+            "primary-container": "#1a365d"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.5rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "md": "16px",
+            "container-max": "1200px",
+            "sm": "8px",
+            "gutter": "16px",
+            "base": "4px",
+            "xs": "4px",
+            "xl": "32px",
+            "xxl": "48px",
+            "lg": "24px"
+          },
+          "fontFamily": {
+            "h1": ["Inter"],
+            "body-md": ["Inter"],
+            "h3": ["Inter"],
+            "h2": ["Inter"],
+            "body-lg": ["Inter"],
+            "label-md": ["Inter"],
+            "label-sm": ["Inter"]
+          },
+          "fontSize": {
+            "h1": ["40px", { "lineHeight": "1.2", "fontWeight": "700" }],
+            "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+            "h3": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+            "h2": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+            "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+            "label-md": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "500" }],
+            "label-sm": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }]
+          }
+        },
+      },
+    }
+  </script>
+</head>
+
+<body
+  class="bg-background text-on-surface font-body-md selection:bg-primary-container selection:text-on-primary-container">
+<header class="sticky top-0 bg-surface w-full border-b border-outline-variant/30 shrink-0 z-[100]">
+  <div class="flex justify-between items-center w-full px-md md:px-xl h-20 max-w-container-max mx-auto">
+    <div class="flex items-center gap-sm">
+      <img alt="Авто terminal трейд ХХК Logo" class="h-12 w-auto object-contain" src="assets/images/main_logo.png" />
+    </div>
+
+    <nav class="hidden md:flex items-center gap-lg h-full">
+      <a class="text-primary font-label-md font-bold" href="index.html">Нүүр</a>
+      <a class="text-on-surface-variant font-label-md hover:text-primary transition-colors" href="about.html">Бидний тухай</a>
+      <a class="text-on-surface-variant font-label-md hover:text-primary transition-colors" href="services.html">Үйлчилгээ</a>
+      <a class="text-on-surface-variant font-label-md hover:text-primary transition-colors" href="contact.html">Холбоо барих</a>
+      <a href="login.html" 
+   class="bg-primary text-on-primary px-md py-sm rounded-lg font-label-md hover:opacity-90 transition-all active:scale-95">
+  Нэвтрэх
+</a>
+
+    
+    </nav>
+  
+
+    <div class="flex items-center gap-sm md:hidden">
+      <a class="text-xs border border-primary text-primary px-2 py-1 rounded hover:bg-primary hover:text-white transition-all" href="login.html">Нэвтрэх</a>
+      <span class="material-symbols-outlined text-on-surface cursor-pointer" data-icon="menu">menu</span>
+    </div>
+  </div>
+</header>
+  <main>
+    <section class="relative min-h-[640px] flex items-center overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <img alt="Modern Public Transport Bus" class="w-full h-full object-cover brightness-[0.4]" src="assets/images/bus.PNG">
+      </div>
+      <div class="relative z-10 w-full px-md md:px-xl max-w-container-max mx-auto">
+        <div class="max-w-2xl text-white">
+          <span
+            class="inline-block px-md py-xs bg-secondary-container text-on-secondary-container rounded-full font-label-md mb-md">Итгэлтэй
+            тээвэр - Аюулгүй аялал</span>
+          <h2 class="font-h1 text-h1 mb-lg text-white">Нийтийн тээврийн шинэ жишиг, найдвартай байдлын илэрхийлэл</h2>
+          <p class="font-body-lg text-body-lg text-white/80 mb-xl leading-relaxed">Бид орчин үеийн стандартад нийцсэн
+            парк шинэчлэлт, туршлагатай хамт олонтойгоор иргэдийнхээ ая тухтай, аюулгүй зорчих нөхцөлийг бүрэн ханган
+            ажиллаж байна.</p>
+          <div class="flex flex-wrap gap-md">
+            <a href="services.html"
+              class="bg-primary text-on-primary px-xl py-md rounded-lg font-label-md hover:opacity-90 active:scale-95 transition-all shadow-lg">Үйлчилгээ
+              үзэх</a>
+            <a href="about.html"
+              class="bg-white/10 backdrop-blur-md border border-white/30 text-white px-xl py-md rounded-lg font-label-md hover:bg-white/20 transition-all">Бидний
+              тухай</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="py-xxl px-md md:px-xl max-w-container-max mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-lg">
+        <div
+          class="md:col-span-2 bg-primary p-xl rounded-lg text-white flex flex-col justify-between min-h-[200px] shadow-sm">
+          <div>
+            <span class="material-symbols-outlined text-4xl mb-md text-secondary-container"
+              data-icon="groups">groups</span>
+            <h3 class="font-h2 text-h2">150,000+</h3>
+            <p class="text-on-primary/70 font-body-md">Сар бүр үйлчлүүлдэг зорчигчид</p>
+          </div>
+        </div>
+        <a class="bg-surface-container p-xl rounded-lg border border-outline-variant/20 hover:border-primary/30 hover:shadow-md transition-all duration-300 group flex flex-col justify-between min-h-[160px]"
+          href="services.html#routes-info">
+
+          <div>
+            <span
+              class="material-symbols-outlined text-primary text-3xl mb-md block group-hover:scale-110 transition-transform origin-left"
+              data-icon="route">route</span>
+            <h4 class="font-h3 text-h3 text-primary mb-2">6</h4>
+          </div>
+
+          <div class="flex justify-between items-center w-full mt-auto">
+            <p class="text-on-surface-variant font-label-md group-hover:text-primary transition-colors">
+              Чиглэлийг үзэх
+            </p>
+            <span
+              class="material-symbols-outlined text-primary transform group-hover:translate-x-1.5 transition-transform duration-300">
+              arrow_forward
+            </span>
+          </div>
+
+        </a>
+        <a class="bg-surface-container p-xl rounded-lg border border-outline-variant/20 hover:border-primary/30 hover:shadow-md transition-all duration-300 group flex flex-col justify-between min-h-[160px]"
+          href="services.html#bus-park">
+
+          <div>
+            <span
+              class="material-symbols-outlined text-primary text-3xl mb-md block group-hover:scale-110 transition-transform origin-left"
+              data-icon="airport_shuttle">
+              airport_shuttle
+            </span>
+            <h4 class="font-h3 text-h3 text-primary mb-2">50+</h4>
+          </div>
+
+          <div class="flex justify-between items-center w-full mt-auto">
+            <p class="text-on-surface-variant font-label-md group-hover:text-primary transition-colors">
+              Автобусны парк
+            </p>
+            <span
+              class="material-symbols-outlined text-primary transform group-hover:translate-x-1.5 transition-transform duration-300">
+              arrow_forward
+            </span>
+          </div>
+
+        </a>
+    </section>
+    <section class="bg-surface-container-low py-xxl">
+      <div class="px-md md:px-xl max-w-container-max mx-auto">
+        <div class="text-center max-w-2xl mx-auto mb-xxl">
+          <h2 class="font-h2 text-h2 text-primary mb-md">Яагаад биднийг сонгох вэ?</h2>
+          <p class="text-on-surface-variant">Туршлагатай жолооч, тогтмол техникийн үзлэгтэй тээврийн хэрэгслээр таны
+            аяллыг аюулгүй хангана.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-xl">
+          <div
+            class="bg-surface-container-lowest p-lg rounded-lg shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-primary-fixed rounded-lg flex items-center justify-center mb-lg">
+              <span class="material-symbols-outlined text-primary" data-icon="security">security</span>
+            </div>
+            <h4 class="font-h3 text-h3 text-primary mb-sm">Аюулгүй байдал</h4>
+            <p class="text-on-surface-variant font-body-md">Манай жолооч нар тогтмол сургалтад хамрагдаж, тээврийн
+              хэрэгслүүд өдөр бүр техникийн үзлэгт ордог.</p>
+          </div>
+          <div
+            class="bg-surface-container-lowest p-lg rounded-lg shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-primary-fixed rounded-lg flex items-center justify-center mb-lg">
+              <span class="material-symbols-outlined text-primary">schedule</span>
+            </div>
+            <h4 class="font-h3 text-h3 text-primary mb-sm">Тогтмол цаг</h4>
+            <p class="text-on-surface-variant font-body-md">Бид ухаалаг хяналтын системийг ашиглан чиглэлийн
+              автобуснуудын цаг баримтлалыг 98%-д хүргэсэн.</p>
+          </div>
+          <div
+            class="bg-surface-container-lowest p-lg rounded-lg shadow-sm border border-outline-variant/20 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 bg-primary-fixed rounded-lg flex items-center justify-center mb-lg">
+              <span class="material-symbols-outlined text-primary">eco</span>
+            </div>
+            <h4 class="font-h3 text-h3 text-primary mb-sm">Эко технологи</h4>
+            <p class="text-on-surface-variant font-body-md">Парк шинэчлэлтийн хүрээнд байгаль орчинд ээлтэй, утаа бага
+              ялгаруулдаг шинэ автобуснуудыг нэвтрүүлж байна.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="py-xxl px-md md:px-xl max-w-container-max mx-auto">
+      <div class="flex flex-col md:flex-row gap-xxl items-center">
+        <div class="w-full md:w-1/2 relative">
+          <div class="absolute -top-4 -left-4 w-32 h-32 bg-primary-fixed rounded-full opacity-30 -z-10"></div>
+          <img alt="Maintenance Service" class="rounded-lg shadow-xl w-full h-[450px] object-cover"
+            src="assets/images/graj.jpg">
+        </div>
+        <div class="w-full md:w-1/2">
+          <h2 class="font-h2 text-h2 text-primary mb-lg">Бидний үзүүлдэг үйлчилгээ</h2>
+          <ul class="space-y-lg">
+            <li class="flex items-start gap-md">
+              <span class="material-symbols-outlined text-primary mt-1" data-icon="check_circle">check_circle</span>
+              <div>
+                <h5 class="font-h3 text-[20px] text-primary">Нийтийн тээврийн үйлчилгээ</h5>
+                <p class="text-on-surface-variant">Хот доторх нийтийн тээвэрийн үйлчилгээ.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-md">
+              <span class="material-symbols-outlined text-primary mt-1">check_circle</span>
+              <div>
+                <h5 class="font-h3 text-[20px] text-primary">Дотоодын Авто засварын төв</h5>
+                <p class="text-on-surface-variant">Орчин үеийн тоног төхөөрөмж бүхий мэргэжлийн засвар үйлчилгээ.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-md">
+              <span class="material-symbols-outlined text-primary mt-1">check_circle</span>
+              <div>
+                <h5 class="font-h3 text-[20px] text-primary">Авто угаалгын цех</h5>
+                <p class="text-on-surface-variant">Түргэн шуурхай, чанартай авто угаалгын цогц үйлчилгээ.</p>
+              </div>
+            </li>
+          </ul>
+          <a href="services.html"
+            class="mt-xxl text-primary font-bold hover:text-primary/70 transition-colors flex items-center gap-2 group">
+            Бүх үйлчилгээг үзэх
+            <span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="bg-primary text-on-primary w-full mt-auto">
+    <div
+      class="flex flex-col md:flex-row justify-between items-start w-full px-xl py-xxl gap-xl max-w-container-max mx-auto">
+      <div class="flex flex-col gap-md max-w-sm">
+        <img alt="Авто терминал трейд ХХК" class="w-auto h-16 object-contain  " src="assets/images/attlogo.png">
+
+        <p class="font-label-sm text-on-primary/50 mt-md">© 2026 Бүх эрх хуулиар хамгаалагдсан.</p>
+      </div>
+      <div class="grid grid-cols-2 gap-xxl">
+        <div class="flex flex-col gap-md">
+          <h6 class="font-label-md text-secondary-container uppercase">Холбоосууд</h6>
+          <a class="text-on-primary/80 hover:text-white transition-colors" href="index.html">Нүүр</a>
+          <a class="text-on-primary/80 hover:text-white transition-colors" href="about.html">Бидний тухай</a>
+          <a class="text-on-primary/80 hover:text-white transition-colors" href="services.html">Үйлчилгээ</a>
+        </div>
+        <div class="flex flex-col gap-md">
+          <h6 class="font-label-md text-secondary-container uppercase">Тусламж</h6>
+          <a class="text-on-primary/80 hover:text-white transition-colors" href="#">Нууцлалын бодлого</a>
+          <a class="text-on-primary/80 hover:text-white transition-colors" href="#">Үйлчилгээний нөхцөл</a>
+          <a class="text-on-primary/80 hover:text-white transition-colors" href="#">Түгээмэл асуулт</a>
+        </div>
+      </div>
+      <div class="flex flex-col gap-md">
+        <h6 class="font-label-md text-secondary-container uppercase">Холбоо барих</h6>
+        <div class="flex items-center gap-md text-on-primary/80">
+          <span class="material-symbols-outlined text-secondary-container" data-icon="call">call</span>
+          <span>+(976) 80057999, <span>
+              <span>+976 80841777</span>
+        </div>
+        <div class="flex items-center gap-md text-on-primary/80">
+          <span class="material-symbols-outlined text-secondary-container" data-icon="mail">mail</span>
+          <span>autoterminal14@gmail.com</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <div class="fixed bottom-0 left-0 w-full flex justify-around items-center py-2 px-4 bg-surface-container-lowest border-t border-outline-variant/30 shadow-[0_-4px_12px_rgba(0,0,0,0.1)] md:hidden z-50">
+  <a class="flex flex-col items-center justify-center text-primary transition-all active:scale-95" href="index.html">
+    <span class="material-symbols-outlined" data-icon="home">home</span>
+    <span class="font-label-sm text-label-sm font-bold">Нүүр</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-outline hover:text-primary transition-all active:scale-95" href="about.html">
+    <span class="material-symbols-outlined" data-icon="info">info</span>
+    <span class="font-label-sm text-label-sm">Бидний тухай</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-outline hover:text-primary transition-all active:scale-95" href="services.html">
+    <span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+    <span class="font-label-sm text-label-sm">Үйлчилгээ</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-outline hover:text-primary transition-all active:scale-95" href="contact.html">
+    <span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+    <span class="font-label-sm text-label-sm">Холбоо</span>
+  </a>
+</div>
+  <script src="assets/js/main.js"></script>
+  </body>
+</html>
+</body>
+
+</html>

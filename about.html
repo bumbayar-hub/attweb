@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html class="w-full h-full" lang="mn">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    
+    <link rel="stylesheet" href="assets/css/style.css">
+    
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "primary-fixed-dim": "#adc7f7",
+                        "surface-container-high": "#e8e8e8",
+                        "surface-bright": "#f9f9f9",
+                        "inverse-on-surface": "#f0f1f1",
+                        "background": "#f9f9f9",
+                        "tertiary-fixed-dim": "#bcc7dd",
+                        "surface-container-low": "#f3f3f4",
+                        "inverse-primary": "#adc7f7",
+                        "on-secondary-fixed-variant": "#673d00",
+                        "primary": "#002045",
+                        "surface-tint": "#455f88",
+                        "primary-fixed": "#d6e3ff",
+                        "on-primary-fixed-variant": "#2d476f",
+                        "on-tertiary-container": "#949fb4",
+                        "on-primary-container": "#86a0cd",
+                        "tertiary-fixed": "#d8e3fa",
+                        "on-primary-fixed": "#001b3c",
+                        "surface-variant": "#e2e2e2",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#ffb55c",
+                        "outline": "#74777f",
+                        "on-surface-variant": "#43474e",
+                        "on-secondary-fixed": "#2b1700",
+                        "outline-variant": "#c4c6cf",
+                        "tertiary-container": "#2b3648",
+                        "on-surface": "#1a1c1c",
+                        "on-background": "#1a1c1c",
+                        "inverse-surface": "#2f3131",
+                        "on-tertiary-fixed": "#111c2c",
+                        "on-error": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "surface-container": "#eeeeee",
+                        "surface": "#f9f9f9",
+                        "on-primary": "#ffffff",
+                        "secondary": "#875200",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#ffddba",
+                        "tertiary": "#162132",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-dim": "#dadada",
+                        "on-secondary-container": "#744600",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#ffb866",
+                        "on-tertiary-fixed-variant": "#3c475a",
+                        "primary-container": "#1a365d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "16px",
+                        "container-max": "1200px",
+                        "sm": "8px",
+                        "gutter": "16px",
+                        "base": "4px",
+                        "xs": "4px",
+                        "xl": "32px",
+                        "xxl": "48px",
+                        "lg": "24px"
+                    },
+                    "fontFamily": {
+                        "h1": ["Inter"],
+                        "body-md": ["Inter"],
+                        "h3": ["Inter"],
+                        "h2": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "label-md": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "h1": ["40px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "h3": ["24px", { "lineHeight": "1.4", "fontWeight": "600" }],
+                        "h2": ["32px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "1.2", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "label-sm": ["12px", { "lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+
+<body class="bg-surface text-on-surface flex flex-col h-screen w-full overflow-hidden">
+
+    <!-- TopAppBar -->
+    <header class="sticky top-0 bg-surface w-full border-b border-outline-variant/30 shrink-0 z-[100]">
+  <div class="flex justify-between items-center w-full px-md md:px-xl h-20 max-w-container-max mx-auto">
+    <div class="flex items-center gap-sm">
+      <img alt="Авто terminal трейд ХХК Logo" class="h-12 w-auto object-contain" src="assets/images/main_logo.png" />
+    </div>
+
+    <nav class="hidden md:flex items-center gap-lg h-full">
+      <a class="text-on-surface-variant font-label-md hover:text-primary transition-colors" href="index.html">Нүүр</a>
+      <a class="text-primary font-label-md font-bold" href="about.html">Бидний тухай</a>
+      <a class="text-on-surface-variant font-label-md hover:text-primary transition-colors" href="services.html">Үйлчилгээ</a>
+      <a class="text-on-surface-variant font-label-md hover:text-primary transition-colors" href="contact.html">Холбоо барих</a>
+      <a href="login.html" 
+   class="bg-primary text-on-primary px-md py-sm rounded-lg font-label-md hover:opacity-90 transition-all active:scale-95">
+  Нэвтрэх
+</a>
+      
+    </nav>
+
+    <div class="flex items-center gap-sm md:hidden">
+      <a class="text-xs border border-primary text-primary px-2 py-1 rounded hover:bg-primary hover:text-white transition-all" href="login.html">Нэвтрэх</a>
+      <span class="material-symbols-outlined text-on-surface cursor-pointer" data-icon="menu">menu</span>
+    </div>
+  </div>
+</header>
+
+    <!-- Үндсэн Скролл Хэсэг -->
+    <main class="flex-1 overflow-y-auto custom-scrollbar relative">
+        <!-- Hero Section -->
+        <section class="relative h-[480px] flex items-center overflow-hidden">
+            <div class="absolute inset-0 bg-primary/70 z-10"></div>
+            <img alt="Авто терминал трейд ХХК-ийн шинэ байгууламж" class="absolute inset-0 w-full h-full object-cover"
+                src="assets/images/Picture999.jpg" />
+            <div class="relative z-20 max-w-container-max mx-auto px-md md:px-xl w-full text-white">
+                <span
+                    class="font-label-sm uppercase tracking-widest bg-secondary px-4 py-1 rounded-lg text-on-secondary inline-block mb-md">Бидний
+                    тухай</span>
+                <h1 class="font-h1 text-h1 max-w-2xl mb-md">Нийтийн тээврийн ирээдүйг хамтдаа тодорхойлж байна</h1>
+                <p class="font-body-lg text-body-lg max-w-xl opacity-90">Монгол улсын тээвэр, логистикийн салбарт 10
+                    гаруй жилийн турш аюулгүй байдал, чанарын стандартыг хэрэгжүүлэн ажиллаж байна.</p>
+            </div>
+        </section>
+
+        <!-- Контент Хэсэг -->
+        <div class="bg-surface relative z-30">
+            <!-- Vision & Mission -->
+            <section class="max-w-container-max mx-auto px-md md:px-xl py-xxl">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-lg">
+                    <!-- Vision -->
+                    <div class="bg-surface-container-low p-xl rounded-lg border border-outline-variant/30">
+                        <div class="w-12 h-12 bg-primary-fixed rounded-lg flex items-center justify-center mb-lg">
+                            <span class="material-symbols-outlined text-primary"
+                                data-icon="visibility">visibility</span>
+                        </div>
+                        <h3 class="font-h2 text-h2 text-primary mb-md">Алсын хараа</h3>
+                        <p class="font-body-md text-body-md text-on-surface-variant">Монгол улсын нийтийн тээврийн
+                            салбарт , дижитал шилжилтийг нэвтрүүлж, зорчигчдын ая тухтай, аюулгүй зорчих нөхцөлийг олон
+                            улсын түвшинд хүргэж, салбартаа тэргүүлэгч жишиг компани байх.</p>
+                    </div>
+                    <!-- Mission -->
+                    <div class="bg-primary text-on-primary p-xl rounded-lg shadow-lg">
+                        <div class="w-12 h-12 bg-white/20 rounded-lg flex items-center justify-center mb-lg">
+                            <span class="material-symbols-outlined text-white"
+                                data-icon="rocket_launch">rocket_launch</span>
+                        </div>
+                        <h3 class="font-h3 text-h3 mb-md text-white">Эрхэм зорилго</h3>
+                        <p class="font-body-md text-body-md opacity-90">Үйлчлүүлэгч бүрт чанартай, хүртээмжтэй
+                            үйлчилгээг хүргэж, тээвэрлэлтийн аюулгүй байдлыг хангах замаар нийгмийн хөгжилд үнэ цэнэтэй
+                            хувь нэмэр оруулна.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Timeline Section -->
+            <section class="bg-surface-container-lowest py-xxl border-y border-outline-variant/30">
+                <div class="max-w-container-max mx-auto px-md md:px-xl">
+                    <div class="text-center mb-xxl mx-auto">
+                        <h2 class="font-h2 text-h1 text-primary">Түүхэн замнал</h2>
+                        <p class="font-body-lg text-body-lg text-on-surface-variant mt-md">Бидний туулж ирсэн амжилтын
+                            он жилүүд</p>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-xxl items-center">
+                        <div class="order-2 lg:order-1 relative">
+                            <div class="absolute left-6 top-0 bottom-0 w-0.5 bg-outline-variant/30"></div>
+                            <div class="space-y-xl">
+                                <div class="relative flex gap-lg">
+                                    <div class="pt-2">
+                                        <p class="text-on-surface-variant font-body-md">Манай "Авто Терминал Трейд" ХХК
+                                            нь 2012 оны 3–р сарын 20 өдөр анх үүсгэн байгуулагдсан. Бизнесийн үйл
+                                            ажиллагааны үндэс суурь нь 2003 оноос эхлэн БНСУ-с барилгын цахилгааны
+                                            автомат импортлох чиглэлээр эхэлж улмаар БНСУ-ын том оврын автобус
+                                            экспортлогч “Тугсу Трейдинг” компанитай хамтран ажиллах гэрээ байгуулсанаар
+                                            Монгол улсад том оврын автобус импортлож эхэлсэн.</p>
+                                    </div>
+                                </div>
+                                <div class="relative flex gap-lg">
+                                    <div class="pt-2">
+                                        <p class="text-on-surface-variant font-body-md">2012 оны 10-р сарын 01-ны өдөр
+                                            Нийслэлийн нийтийн тээврийн газартай гэрээ байгуулж Баянмонгол хороолол-Бага
+                                            тойруу М:55 чиглэлд 10 автобустай 14км-н урттай маршрутад 6 гаралттайгаар
+                                            анхны үйлчилгээг үзүүлж эхэлсэн.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-1 lg:order-2">
+                            <div class="rounded-xl overflow-hidden shadow-xl border border-outline-variant/30">
+                                <img alt="Компанийн түүхэн замнал" class="w-full h-full object-cover aspect-[4/5]"
+                                    src="assets/images/f1.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Standards & Quality -->
+            <section class="max-w-container-max mx-auto px-md md:px-xl py-xxl">
+                <div class="flex flex-col md:flex-row items-center gap-xl">
+                    <div class="flex-1">
+                        <h2 class="font-h2 text-h2 text-primary mb-lg">Чанар ба Аюулгүй ажиллагаа</h2>
+                        <p class="font-body-lg text-body-lg text-on-surface-variant mb-xl">Бидний үйл ажиллагааны цөм нь
+                            аюулгүй байдал юм. Бид дотоодын болон холбогдох дүрэм журмыг чандлан мөрдөж ажилладаг.</p>
+                        <div class="space-y-lg">
+                            <div class="flex gap-md items-start p-md bg-surface-container rounded-lg">
+                                <span class="material-symbols-outlined text-secondary"
+                                    data-icon="verified">verified</span>
+                                <div>
+                                    <h5 class="font-label-md text-primary font-bold">Нийслэлийн засаг даргын тамгын
+                                        газрын тусгай зөвшөөрөл</h5>
+                                    <p class="font-body-md text-body-md text-on-surface-variant mt-xs">2024 оны 12
+                                        дугаар сарын 02-ны өдрийн А/1404 дугаар захирамжаар 5 жилийн хугацаатай “ТУСГАЙ
+                                        ЗӨВШӨӨРӨЛ” авав.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-md items-start p-md bg-surface-container rounded-lg">
+                                <span class="material-symbols-outlined text-secondary"
+                                    data-icon="health_and_safety">health_and_safety</span>
+                                <div>
+                                    <h5 class="font-label-md text-primary font-bold">Ажлын байрны аюулгүй байдал</h5>
+                                    <p class="font-body-md text-body-md text-on-surface-variant mt-xs">Жолооч нарын
+                                        эрүүл мэнд, техникийн өдөр тутмын хяналт болон аюулгүй ажиллагааны зааварчилгаа.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-1 grid grid-cols-1 gap-md">
+                        <div class="rounded-xl overflow-hidden shadow-xl border border-outline-variant/30">
+                            <img alt="Аюулгүй ажиллагаа" class="w-full h-full object-cover aspect-[4/3]"
+                                src="image/graj.jpg" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="bg-primary text-on-primary w-full mt-auto">
+            <div
+                class="flex flex-col md:flex-row justify-between items-start w-full px-xl py-xxl gap-xl max-w-container-max mx-auto">
+                <div class="flex flex-col gap-md max-w-sm">
+                    <img alt="Авто терминал трейд ХХК" class="w-auto h-16 object-contain  " src="assets/images/attlogo.png">
+
+                    <p class="font-label-sm text-on-primary/50 mt-md">© 2026 Бүх эрх хуулиар хамгаалагдсан.</p>
+                </div>
+                <div class="grid grid-cols-2 gap-xxl">
+                    <div class="flex flex-col gap-md">
+                        <h6 class="font-label-md text-secondary-container uppercase">Холбоосууд</h6>
+                        <a class="text-on-primary/80 hover:text-white transition-colors" href="index.html">Нүүр</a>
+                        <a class="text-on-primary/80 hover:text-white transition-colors" href="about.html">Бидний
+                            тухай</a>
+                        <a class="text-on-primary/80 hover:text-white transition-colors"
+                            href="services.html">Үйлчилгээ</a>
+                    </div>
+                    <div class="flex flex-col gap-md">
+                        <h6 class="font-label-md text-secondary-container uppercase">Тусламж</h6>
+                        <a class="text-on-primary/80 hover:text-white transition-colors" href="#">Нууцлалын бодлого</a>
+                        <a class="text-on-primary/80 hover:text-white transition-colors" href="#">Үйлчилгээний
+                            нөхцөл</a>
+                        <a class="text-on-primary/80 hover:text-white transition-colors" href="#">Түгээмэл асуулт</a>
+                    </div>
+                </div>
+                <div class="flex flex-col gap-md">
+                    <h6 class="font-label-md text-secondary-container uppercase">Холбоо барих</h6>
+                    <div class="flex items-center gap-md text-on-primary/80">
+                        <span class="material-symbols-outlined text-secondary-container" data-icon="call">call</span>
+                        <span>+(976) 80057999, <span>
+                                <span>+976 80841777</span>
+                    </div>
+                    <div class="flex items-center gap-md text-on-primary/80">
+                        <span class="material-symbols-outlined text-secondary-container" data-icon="mail">mail</span>
+                        <span>autoterminal14@gmail.com</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Гар утасны доод цэсэнд халхлагдахаас сэргийлсэн зай -->
+        <div class="h-24 md:hidden"></div>
+    </main>
+
+    <!-- Mobile Bottom Navigation -->
+    <div class="fixed bottom-0 left-0 w-full flex justify-around items-center py-2 px-4 bg-surface-container-lowest border-t border-outline-variant/30 shadow-[0_-4px_12px_rgba(0,0,0,0.1)] md:hidden z-50">
+  <a class="flex flex-col items-center justify-center text-outline hover:text-primary transition-all active:scale-95" href="index.html">
+    <span class="material-symbols-outlined" data-icon="home">home</span>
+    <span class="font-label-sm text-label-sm">Нүүр</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-primary transition-all active:scale-95" href="about.html">
+    <span class="material-symbols-outlined" data-icon="info">info</span>
+    <span class="font-label-sm text-label-sm font-bold">Бидний тухай</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-outline hover:text-primary transition-all active:scale-95" href="services.html">
+    <span class="material-symbols-outlined" data-icon="local_shipping">local_shipping</span>
+    <span class="font-label-sm text-label-sm">Үйлчилгээ</span>
+  </a>
+  <a class="flex flex-col items-center justify-center text-outline hover:text-primary transition-all active:scale-95" href="contact.html">
+    <span class="material-symbols-outlined" data-icon="contact_support">contact_support</span>
+    <span class="font-label-sm text-label-sm">Холбоо</span>
+  </a>
+</div>
+<script src="assets/js/main.js"></script>
+  </body>
+</html><script src="assets/js/main.js"></script>
+  </body>
+</html>
+</body>
+
+</html>

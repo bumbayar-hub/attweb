@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Дашборд | ATT Портал</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .tab-btn.active { background: #002045; color: white; }
+    .card-enter { animation: fadeUp 0.3s ease; }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+    .badge-new { animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:.5;} }
+    .training-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,32,69,0.1); }
+    .training-card { transition: all 0.2s ease; }
+    .animate-spin { animation: spin 1s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .card-enter { height: auto !important; min-height: min-content; }
+    .news-img { width: 100%; height: 200px; object-fit: cover; cursor: pointer; }
+    .gallery-scroll { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding-bottom: 4px; }
+    .gallery-scroll::-webkit-scrollbar { height: 4px; }
+    .gallery-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+    .gallery-item { scroll-snap-align: start; flex-shrink: 0; width: 100%; height: 200px; object-fit: cover; border-radius: 0.75rem; cursor: pointer; }
+    .gallery-item-sm { scroll-snap-align: start; flex-shrink: 0; width: 140px; height: 100px; object-fit: cover; border-radius: 0.5rem; cursor: pointer; }
+    .training-img { width: 100%; height: 140px; object-fit: cover; }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen pb-20">
+
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-4 h-14 md:h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <img alt="Авто terminal трейд ХХК Logo" class="h-12 w-auto object-contain" src="assets/images/main_logo.png" />
+      </div>
+      <div class="flex items-center gap-2">
+        <div class="text-right hidden sm:block">
+          <p class="text-xs font-medium text-gray-800" id="user-name">Уншиж байна...</p>
+          <p class="text-xs text-gray-400" id="user-role">—</p>
+        </div>
+        <div class="w-8 h-8 md:w-9 md:h-9 bg-[#002045] rounded-full flex items-center justify-center text-white text-sm font-bold" id="user-avatar">?</div>
+        <button onclick="handleLogout()" class="text-gray-400 hover:text-red-500 transition-colors" title="Гарах">
+          <span class="material-symbols-outlined text-xl">logout</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main class="max-w-5xl mx-auto px-3 md:px-4 py-4 md:py-6">
+
+    <!-- Welcome Banner -->
+    <div class="bg-[#002045] rounded-2xl p-4 md:p-6 mb-4 md:mb-6 text-white relative overflow-hidden">
+      <div class="absolute right-2 top-0 opacity-10 text-[80px] md:text-[120px] leading-none font-black select-none">ATT</div>
+      <p class="text-xs uppercase tracking-widest text-blue-300 mb-1">Сайн байна уу</p>
+      <h1 class="text-lg md:text-xl font-bold mb-1" id="welcome-name">...</h1>
+      <p class="text-sm text-blue-200" id="welcome-dept">Авто Терминал Трейд ХХК</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex gap-2 mb-4 md:mb-6 bg-gray-100 p-1 rounded-xl w-fit">
+      <button onclick="showTab('news')" id="tab-news" class="tab-btn active px-4 md:px-5 py-2 rounded-lg text-sm font-medium transition-all">
+        Мэдээлэл
+      </button>
+      <button onclick="showTab('training')" id="tab-training" class="tab-btn px-4 md:px-5 py-2 rounded-lg text-sm font-medium transition-all text-gray-600">
+        Сургалт
+      </button>
+    </div>
+
+    <!-- NEWS TAB -->
+    <div id="tab-news-content" class="card-enter">
+      <div id="news-list" class="space-y-3">
+        <div class="text-center py-12 text-gray-400">
+          <span class="material-symbols-outlined text-4xl block mb-2">newspaper</span>
+          <p class="text-sm">Уншиж байна...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TRAINING TAB -->
+    <div id="tab-training-content" class="hidden card-enter">
+      <div id="training-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
+        <div class="text-center py-12 text-gray-400 col-span-2">
+          <span class="material-symbols-outlined text-4xl block mb-2">school</span>
+          <p class="text-sm">Уншиж байна...</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Training Detail Modal -->
+  <div id="training-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-end md:items-center justify-center p-0 md:p-4">
+    <div class="bg-white rounded-t-2xl md:rounded-2xl w-full md:max-w-2xl max-h-[95vh] overflow-y-auto">
+      <div id="modal-img-wrap" class="hidden"></div>
+      <div class="p-5 md:p-6">
+        <div class="w-10 h-1 bg-gray-200 rounded-full mx-auto mb-4 md:hidden"></div>
+        <div class="flex justify-between items-start mb-4">
+          <h3 class="text-base md:text-lg font-bold text-[#002045] pr-4" id="modal-title">—</h3>
+          <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 shrink-0">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <div class="space-y-3 text-sm text-gray-600" id="modal-body"></div>
+        <button id="complete-btn"
+          class="mt-5 w-full h-11 bg-[#002045] text-white rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-[#002d5c] transition-all active:scale-95">
+          <span class="material-symbols-outlined text-base">check_circle</span> Дуусгалаа гэж тэмдэглэх
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Image lightbox -->
+  <div id="lightbox" class="fixed inset-0 bg-black/90 z-[60] hidden flex items-center justify-center p-4" onclick="document.getElementById('lightbox').classList.add('hidden')">
+    <img id="lightbox-img" src="" class="max-w-full max-h-full rounded-xl object-contain">
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    import { getFirestore, collection, getDocs, doc, getDoc, updateDoc, arrayUnion, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDXxCdM85PWDxqKTFu_bRWJAuiylKKKbTc",
+      authDomain: "auto-terminal-trade.firebaseapp.com",
+      databaseURL: "https://auto-terminal-trade-default-rtdb.firebaseio.com",
+      projectId: "auto-terminal-trade",
+      storageBucket: "auto-terminal-trade.firebasestorage.app",
+      messagingSenderId: "938939698580",
+      appId: "1:938939698580:web:c8c97d3f471baae2729381",
+      measurementId: "G-E1T4E46Z6H"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    let currentUser = null;
+    let currentUserData = null;
+    let currentTraining = null;
+
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) { window.location.href = 'login.html'; return; }
+      currentUser = user;
+      const userDoc = await getDoc(doc(db, "users", user.uid));
+      if (!userDoc.exists()) { window.location.href = 'login.html'; return; }
+      currentUserData = userDoc.data();
+      if (currentUserData.role === 'admin') { window.location.href = 'admin.html'; return; }
+
+      const name = currentUserData.displayName || user.email;
+      document.getElementById('user-name').textContent = name;
+      document.getElementById('user-role').textContent = currentUserData.department || 'Ажилтан';
+      document.getElementById('welcome-name').textContent = name;
+      document.getElementById('welcome-dept').textContent = currentUserData.department || 'Авто Терминал Трейд ХХК';
+      document.getElementById('user-avatar').textContent = name.charAt(0).toUpperCase();
+
+      loadNews();
+      loadTrainings();
+    });
+
+    async function loadNews() {
+      const newsEl = document.getElementById('news-list');
+      try {
+        const q = query(collection(db, "news"), orderBy("createdAt", "desc"));
+        const snap = await getDocs(q);
+        if (snap.empty) {
+          newsEl.innerHTML = '<div class="text-center py-12 text-gray-400"><span class="material-symbols-outlined text-4xl block mb-2">newspaper</span><p class="text-sm">Одоогоор мэдээлэл алга байна.</p></div>';
+          return;
+        }
+        newsEl.innerHTML = '';
+        snap.forEach(d => {
+          const data = d.data();
+          const date = data.createdAt?.toDate ? data.createdAt.toDate().toLocaleDateString('mn-MN') : '—';
+          const isNew = data.createdAt?.toDate && (Date.now() - data.createdAt.toDate().getTime()) < 7 * 86400000;
+          const imgs = data.images && data.images.length > 0 ? data.images : (data.imageURL ? [{ dataURL: data.imageURL }] : []);
+          let galleryHtml = '';
+          if (imgs.length === 1) {
+            galleryHtml = `<div class="mb-0 overflow-hidden rounded-t-xl"><img src="${imgs[0].dataURL}" class="news-img" onclick="showLightbox('${imgs[0].dataURL}')"></div>`;
+          } else if (imgs.length > 1) {
+            const items = imgs.map(img => `<img src="${img.dataURL}" class="gallery-item" onclick="showLightbox('${img.dataURL}')">`).join('');
+            galleryHtml = `<div class="gallery-scroll rounded-t-xl overflow-hidden mb-0 px-0">${items}</div>`;
+          }
+          newsEl.innerHTML += `
+            <div class="bg-white rounded-xl border border-gray-200 hover:border-[#002045]/30 transition-all card-enter overflow-hidden">
+              ${galleryHtml}
+              <div class="p-4 md:p-5">
+                <div class="flex justify-between items-start gap-3">
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 mb-2 flex-wrap">
+                      ${isNew ? '<span class="text-xs bg-[#ffb55c] text-[#744600] px-2 py-0.5 rounded-full font-semibold badge-new">Шинэ</span>' : ''}
+                      <span class="text-xs text-gray-400">${date}</span>
+                    </div>
+                    <h3 class="font-semibold text-gray-800 mb-1 text-sm md:text-base">${data.title}</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed break-words whitespace-pre-wrap">${data.content}</p>
+                    ${data.fileURL ? `
+                    <a href="${data.fileURL}" target="_blank"
+                       class="mt-3 inline-flex items-center gap-1.5 bg-[#002045] text-white px-3 py-2 rounded-lg text-xs font-medium hover:bg-[#002d5c] transition-all active:scale-95">
+                      <span class="material-symbols-outlined text-sm">open_in_new</span>
+                      ${data.fileName || 'Хавсралт нээх'}
+                    </a>` : ''}
+                  </div>
+                  ${imgs.length === 0 ? `<div class="w-9 h-9 bg-blue-50 rounded-lg flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-[#002045] text-base">${data.icon || 'article'}</span></div>` : ''}
+                </div>
+              </div>
+            </div>`;
+        });
+      } catch(e) {
+        newsEl.innerHTML = '<div class="text-center py-8 text-red-400 text-sm">Мэдээлэл татахад алдаа гарлаа: ' + e.message + '</div>';
+      }
+    }
+
+    async function loadTrainings() {
+      const listEl = document.getElementById('training-list');
+      try {
+        const q = query(collection(db, "trainings"), orderBy("createdAt", "desc"));
+        const snap = await getDocs(q);
+        if (snap.empty) {
+          listEl.innerHTML = '<div class="text-center py-12 text-gray-400 col-span-2"><span class="material-symbols-outlined text-4xl block mb-2">school</span><p class="text-sm">Одоогоор сургалт байхгүй байна.</p></div>';
+          return;
+        }
+        listEl.innerHTML = '';
+        const completed = currentUserData.completedTrainings || [];
+        snap.forEach(d => {
+          const data = d.data();
+          const done = completed.includes(d.id);
+          const imgs = data.images && data.images.length > 0 ? data.images : (data.imageURL ? [{ dataURL: data.imageURL }] : []);
+          let cardImgHtml = '';
+          if (imgs.length === 1) {
+            cardImgHtml = `<img src="${imgs[0].dataURL}" class="training-img rounded-t-xl">`;
+          } else if (imgs.length > 1) {
+            cardImgHtml = `<div class="gallery-scroll rounded-t-xl overflow-hidden" style="border-radius:0.75rem 0.75rem 0 0">
+              ${imgs.map(img => `<img src="${img.dataURL}" class="gallery-item-sm" style="border-radius:0;height:100px">`).join('')}
+            </div>`;
+          }
+          listEl.innerHTML += `
+            <div class="training-card bg-white rounded-xl border ${done ? 'border-green-200 bg-green-50/30' : 'border-gray-200'} cursor-pointer active:scale-95 overflow-hidden" onclick='openTraining("${d.id}", ${JSON.stringify(data).replace(/"/g, '&quot;')})'>
+              ${cardImgHtml}
+              <div class="p-4">
+                <div class="flex items-start justify-between gap-2 mb-3">
+                  <div class="w-9 h-9 ${done ? 'bg-green-100' : 'bg-[#002045]/10'} rounded-lg flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined ${done ? 'text-green-600' : 'text-[#002045]'} text-lg">${done ? 'check_circle' : 'school'}</span>
+                  </div>
+                  <span class="text-xs ${done ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'} px-2 py-1 rounded-full font-medium shrink-0">${done ? 'Дууссан' : 'Хүлээгдэж байна'}</span>
+                </div>
+                <h4 class="font-semibold text-gray-800 text-sm mb-1">${data.title}</h4>
+                <p class="text-xs text-gray-500 mb-3 line-clamp-2">${data.description || ''}</p>
+                <div class="flex items-center gap-2 flex-wrap">
+                  <div class="flex items-center gap-1 text-xs text-gray-400">
+                    <span class="material-symbols-outlined text-sm">calendar_today</span>
+                    ${data.date || '—'}
+                  </div>
+                  ${data.fileURL ? '<span class="text-xs bg-blue-50 text-[#002045] px-2 py-0.5 rounded-full flex items-center gap-1"><span class="material-symbols-outlined text-sm">picture_as_pdf</span>PDF</span>' : ''}
+                </div>
+              </div>
+            </div>`;
+        });
+      } catch(e) {
+        listEl.innerHTML = '<div class="text-center py-8 text-red-400 text-sm col-span-2">Сургалт татахад алдаа гарлаа: ' + e.message + '</div>';
+      }
+    }
+
+    // 📄 MODAL (PDF товчтой, iframe-гүй)
+    window.openTraining = async function(id, data) {
+      currentTraining = { id, ...data };
+      document.getElementById('modal-title').textContent = data.title;
+
+      const imgs = data.images && data.images.length > 0 ? data.images : (data.imageURL ? [{ dataURL: data.imageURL }] : []);
+      const imgWrap = document.getElementById('modal-img-wrap');
+      if (imgs.length > 0) {
+        if (imgs.length === 1) {
+          imgWrap.innerHTML = `<img src="${imgs[0].dataURL}" class="w-full h-48 object-cover rounded-t-2xl cursor-pointer" onclick="showLightbox('${imgs[0].dataURL}')">`;
+        } else {
+          imgWrap.innerHTML = `<div class="gallery-scroll rounded-t-2xl overflow-hidden" style="height:180px">
+            ${imgs.map(img => `<img src="${img.dataURL}" class="gallery-item" style="height:180px" onclick="showLightbox('${img.dataURL}')">`).join('')}
+          </div>`;
+        }
+        imgWrap.classList.remove('hidden');
+      } else {
+        imgWrap.classList.add('hidden');
+        imgWrap.innerHTML = '';
+      }
+
+      const completedList = currentUserData.completedTrainings || [];
+      const done = completedList.includes(id);
+
+      // 📄 PDF товч — iframe-гүй, шууд нээх
+      let pdfHtml = '';
+      if (data.fileURL) {
+        const isBase64 = data.fileURL.startsWith('data:');
+        const fileName = data.fileName || 'PDF материал';
+
+        if (isBase64) {
+          pdfHtml = `
+            <div class="mt-4 rounded-xl border border-gray-200 bg-gray-50 p-4 flex flex-col items-center gap-3">
+              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
+                <span class="material-symbols-outlined text-[#002045] text-2xl">picture_as_pdf</span>
+              </div>
+              <p class="text-sm font-medium text-gray-700 text-center">${fileName}</p>
+              <div class="flex gap-2 w-full">
+                <button onclick="openPDF(); event.stopPropagation();"
+                  class="flex-1 h-11 bg-[#002045] text-white rounded-xl text-sm font-medium flex items-center justify-center gap-2 hover:bg-[#002d5c] active:scale-95 transition-all">
+                  <span class="material-symbols-outlined text-base">open_in_new</span> PDF нээх
+                </button>
+                <button onclick="downloadPDF('${fileName.replace(/'/g, "\\'")}'); event.stopPropagation();"
+                  class="flex-1 h-11 border border-[#002045] text-[#002045] rounded-xl text-sm font-medium flex items-center justify-center gap-2 hover:bg-blue-50 active:scale-95 transition-all">
+                  <span class="material-symbols-outlined text-base">download</span> Татах
+                </button>
+              </div>
+            </div>`;
+        } else {
+          pdfHtml = `
+            <div class="mt-4 rounded-xl border border-gray-200 bg-gray-50 p-4 flex flex-col items-center gap-3">
+              <div class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center">
+                <span class="material-symbols-outlined text-[#002045] text-2xl">picture_as_pdf</span>
+              </div>
+              <p class="text-sm font-medium text-gray-700 text-center">${fileName}</p>
+              <button onclick="window.open('${data.fileURL}', '_blank'); event.stopPropagation();"
+                class="w-full h-11 bg-[#002045] text-white rounded-xl text-sm font-medium flex items-center justify-center gap-2 hover:bg-[#002d5c] active:scale-95 transition-all">
+                <span class="material-symbols-outlined text-base">open_in_new</span> PDF нээх
+              </button>
+            </div>`;
+        }
+      }
+
+      document.getElementById('modal-body').innerHTML = `
+        <div class="bg-gray-50 rounded-lg p-3 md:p-4 mb-3">
+          <p class="text-xs text-gray-500 mb-3">${data.description || ''}</p>
+        </div>
+        ${pdfHtml}
+        <div class="grid grid-cols-2 gap-2 md:gap-3 mt-3">
+          ${data.date ? `<div class="bg-blue-50 rounded-lg p-2 md:p-3"><p class="text-xs text-gray-400 mb-0.5">Огноо</p><p class="font-medium text-gray-700 text-sm">${data.date}</p></div>` : ''}
+          ${data.duration ? `<div class="bg-blue-50 rounded-lg p-2 md:p-3"><p class="text-xs text-gray-400 mb-0.5">Хугацаа</p><p class="font-medium text-gray-700 text-sm">${data.duration}</p></div>` : ''}
+        </div>`;
+
+      // Complete товч
+      const completeBtn = document.getElementById('complete-btn');
+      if (done) {
+        completeBtn.innerHTML = '<span class="material-symbols-outlined text-base">check_circle</span> ✅ Дуусгалаа!';
+        completeBtn.disabled = true;
+        completeBtn.className = 'mt-5 w-full h-11 bg-green-500 text-white rounded-xl font-medium flex items-center justify-center gap-2 opacity-70 cursor-default';
+        completeBtn.onclick = null;
+      } else {
+        completeBtn.innerHTML = '<span class="material-symbols-outlined text-base">check_circle</span> Дуусгалаа гэж тэмдэглэх';
+        completeBtn.disabled = false;
+        completeBtn.className = 'mt-5 w-full h-11 bg-[#002045] text-white rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-[#002d5c] transition-all active:scale-95';
+        completeBtn.onclick = markComplete;
+      }
+
+      document.getElementById('training-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    };
+
+    window.closeModal = () => {
+      document.getElementById('training-modal').classList.add('hidden');
+      document.body.style.overflow = '';
+    };
+
+    // 📄 Base64 PDF-ийг blob болгож шинэ tab-д нээх
+    window.openPDF = function() {
+      if (!currentTraining || !currentTraining.fileURL) return;
+      const url = currentTraining.fileURL;
+      if (url.startsWith('data:')) {
+        try {
+          const byteString = atob(url.split(',')[1]);
+          const mimeString = url.split(',')[0].split(':')[1].split(';')[0];
+          const ab = new ArrayBuffer(byteString.length);
+          const ia = new Uint8Array(ab);
+          for (let i = 0; i < byteString.length; i++) ia[i] = byteString.charCodeAt(i);
+          const blob = new Blob([ab], { type: mimeString });
+          const blobUrl = URL.createObjectURL(blob);
+          window.open(blobUrl, '_blank');
+        } catch(e) {
+          alert('PDF нээхэд алдаа гарлаа.');
+        }
+      } else {
+        window.open(url, '_blank');
+      }
+    };
+
+    // 📥 PDF татах
+    window.downloadPDF = function(fileName) {
+      if (!currentTraining || !currentTraining.fileURL) return;
+      const link = document.createElement('a');
+      link.href = currentTraining.fileURL;
+      link.download = fileName || 'materials.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    };
+
+    // Сургалт дуусгах
+    window.markComplete = async function() {
+      if (!currentTraining || !currentUser) return;
+      const btn = document.getElementById('complete-btn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="material-symbols-outlined text-base animate-spin">progress_activity</span> Хадгалж байна...';
+      try {
+        await updateDoc(doc(db, "users", currentUser.uid), {
+          completedTrainings: arrayUnion(currentTraining.id)
+        });
+        currentUserData.completedTrainings = [...(currentUserData.completedTrainings || []), currentTraining.id];
+        btn.innerHTML = '<span class="material-symbols-outlined text-base">check_circle</span> ✅ Дуусгалаа!';
+        btn.className = 'mt-5 w-full h-11 bg-green-500 text-white rounded-xl font-medium flex items-center justify-center gap-2 opacity-70 cursor-default';
+        setTimeout(() => {
+          closeModal();
+          loadTrainings();
+        }, 1500);
+      } catch(e) {
+        console.error('Алдаа:', e);
+        alert('Алдаа гарлаа. Дахин оролдоно уу.');
+        btn.disabled = false;
+        btn.innerHTML = '<span class="material-symbols-outlined text-base">check_circle</span> Дуусгалаа гэж тэмдэглэх';
+      }
+    };
+
+    window.showLightbox = function(src) {
+      document.getElementById('lightbox-img').src = src;
+      document.getElementById('lightbox').classList.remove('hidden');
+    };
+
+    window.handleLogout = async () => {
+      await signOut(auth);
+      window.location.href = 'login.html';
+    };
+  </script>
+
+  <script>
+    function showTab(tab) {
+      ['news','training'].forEach(t => {
+        document.getElementById(`tab-${t}-content`).classList.toggle('hidden', t !== tab);
+        document.getElementById(`tab-${t}`).classList.toggle('active', t === tab);
+        document.getElementById(`tab-${t}`).classList.toggle('text-gray-600', t !== tab);
+      });
+    }
+  </script>
+</body>
+</html>
